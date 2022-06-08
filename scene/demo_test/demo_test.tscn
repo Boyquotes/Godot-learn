@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://script/demo_test/demoTest.gd" type="Script" id=1]
+[ext_resource path="res://script/demo_test/demoTest2.gd" type="Script" id=2]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node" type="Node"]
 script = ExtResource( 1 )
+enemy_base = [ null, null, null, null, null ]
+
+[node name="Node2" type="Node" parent="."]
+script = ExtResource( 1 )
+
+[node name="Node3" type="Node" parent="Node2"]
+script = ExtResource( 2 )
+test = [ 2, 2.5 ]

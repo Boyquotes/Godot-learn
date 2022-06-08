@@ -9,12 +9,24 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://script/demo_test/Enemy.gd"
+}, {
+"base": "Enemy",
+"class": "EnemyPigClass",
+"language": "GDScript",
+"path": "res://script/demo_test/EnemyPig.gd"
+}, {
 "base": "Node2D",
 "class": "MyClass",
 "language": "GDScript",
 "path": "res://script/demo02_base/MyClass.gd"
 } ]
 _global_script_class_icons={
+"Enemy": "",
+"EnemyPigClass": "",
 "MyClass": "res://icon.png"
 }
 
