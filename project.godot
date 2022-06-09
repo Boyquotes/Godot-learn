@@ -9,15 +9,15 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Reference",
-"class": "Enemy",
+"base": "Node",
+"class": "BasicAction",
 "language": "GDScript",
-"path": "res://script/demo_test/Enemy.gd"
+"path": "res://script/demo18_3D/BasicAction.gd"
 }, {
-"base": "Enemy",
-"class": "EnemyPigClass",
+"base": "BasicAction",
+"class": "JumpAction",
 "language": "GDScript",
-"path": "res://script/demo_test/EnemyPig.gd"
+"path": "res://script/demo18_3D/Actions/Jump.gd"
 }, {
 "base": "Node2D",
 "class": "MyClass",
@@ -25,8 +25,8 @@ _global_script_classes=[ {
 "path": "res://script/demo02_base/MyClass.gd"
 } ]
 _global_script_class_icons={
-"Enemy": "",
-"EnemyPigClass": "",
+"BasicAction": "",
+"JumpAction": "",
 "MyClass": "res://icon.png"
 }
 
