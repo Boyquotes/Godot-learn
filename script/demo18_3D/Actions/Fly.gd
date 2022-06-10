@@ -4,15 +4,17 @@ class_name FlyAction
 
 
 #贝塞尔插值数量，越大越平滑，但需要更多计算开销
-const interpolationNum=32
+const interpolationNum=8
 #飞行高度
-var fly_height=9
+var flyHeight=9
 #飞行半径
-var fly_range=8
+var flyRange=8
 #最大飞行速度
-var max_fly_speed=3.5
+var maxFlySpeed=3.5
 #飞行加速度
 var acceleration = 2
+# 两端路径平滑交接比例 
+var smoothJoin =0.88
 
 #扰动参数 
 var disturbance_frequency=5
@@ -23,13 +25,14 @@ var startPosition
 var pathNode  #用于修改路径
 var pathFollowNode  #用于fellow路径
 var point
-
+var curvesCurrentPoint
 
 enum FlyPhase {Up,Mill,Down,Ground}
 
 onready var currentFlyPhase=FlyPhase.Up
 onready var curves=Curve3D.new()
-
+onready var curvesSmoothJoin=Curve3D.new()
+onready var isInSmoothJoin=false
 func run(data):
 	.run(data)
 	#记录起飞前的位置，最后需要回到i原点
@@ -41,30 +44,34 @@ func run(data):
 	pathFollowNode=PathFollow.new()
 	pathNode.add_child(pathFollowNode)
 	#计算路径
-	FlyPathCal()
-
+	FlyPathCal(FlyPhase.Up)
+	FlyPathSet(curves)
 func _physics_process(delta):
 	match currentFlyPhase:
 		FlyPhase.Up:
-			
-			move_along_path(delta)
+			moveAlongPath(delta)
 			#如果飞行高度到达了fly_height
-			
-			if(pathFollowNode.unit_offset>0.98):
-				print("ReachMaxHeight")
-				currentFlyPhase=FlyPhase.Mill
-				FlyPathCal()
+			if(pathFollowNode.unit_offset>smoothJoin and not isInSmoothJoin):
 
+				isInSmoothJoin=true
+				FlyPathCal(FlyPhase.Mill)
+				SmoothJoinPathCal()
+
+				FlyPathSet(curvesSmoothJoin)
+			elif(pathFollowNode.unit_offset>0.99):
+				isInSmoothJoin=false
+				currentFlyPhase=FlyPhase.Mill
+				FlyPathSet(curves,true)
 		FlyPhase.Mill:
-			move_along_path(delta)
-			if(pathFollowNode.unit_offset>0.98):
+			moveAlongPath(delta)
+			if(pathFollowNode.unit_offset>smoothJoin):
 				print("转了一圈")
 				
 		FlyPhase.Down:
-			move_along_path(delta)
+			moveAlongPath(delta)
 			print("Down")
 			print(pathFollowNode.unit_offset)
-			if(pathFollowNode.unit_offset>0.98):
+			if(pathFollowNode.unit_offset>smoothJoin):
 				currentFlyPhase=FlyPhase.Ground
 				print("Ground")
 			pass
@@ -76,13 +83,22 @@ func _physics_process(delta):
 	if(parentNode.is_on_wall()):
 		print("is_on_wall")
 		pass
-func FlyPathCal():
+func FlyPathSet(targetCurve,removeFirst=false):
+
+	curvesCurrentPoint=targetCurve.get_baked_points()
+	if removeFirst:
+		targetCurve.remove_point(0)
+		
+	pathNode.curve=targetCurve
+	pathFollowNode.unit_offset=0
+
+func FlyPathCal(FlyPhase):
 	curves.clear_points( )
-	match currentFlyPhase:
-		FlyPhase.Up:
+	match FlyPhase:
+		0:
 			#二次贝塞尔曲线插值需要的三个参数 p0已经有了
-			var p1=Vector3(startPosition.x,startPosition.y+fly_height,startPosition.z)
-			var p2=Vector3(startPosition.x+fly_range,startPosition.y+fly_height,startPosition.z)
+			var p1=Vector3(startPosition.x,startPosition.y+flyHeight,startPosition.z)
+			var p2=Vector3(startPosition.x+flyRange,startPosition.y+flyHeight,startPosition.z)
 			
 			#二次贝塞尔曲线插值
 			var t_delta=1.0/(interpolationNum+1)
@@ -90,26 +106,25 @@ func FlyPathCal():
 			curves.add_point(startPosition)
 			for i in range(interpolationNum):
 			
-				point=_quadratic_bezier(startPosition,p1,p2,t)
+				point=quadraticBezier(startPosition,p1,p2,t)
 				t+=t_delta
 				curves.add_point(point)
-
 			curves.add_point(p2)
 
-		FlyPhase.Mill:
+		1:
 			var angel_delta= 6.28/(interpolationNum+1)   #3.14 *2 
 			var angel=-6.28+angel_delta
 			curves.add_point(parentNode.transform.origin)
 
 			for i in range(interpolationNum):
-				point =Vector3(startPosition.x+fly_range*cos(angel),startPosition.y+fly_height,startPosition.z+fly_range*sin(angel))
+				point =Vector3(startPosition.x+flyRange*cos(angel),startPosition.y+flyHeight,startPosition.z+flyRange*sin(angel))
 				angel+=angel_delta
 
 				curves.add_point(point)
-		FlyPhase.Down:
+		2:
 			#二次贝塞尔曲线插值需要的三个参数 p2已经有了
 			var p0= parentNode.transform.origin
-			var p1=Vector3(startPosition.x,startPosition.y+fly_height,startPosition.z)
+			var p1=Vector3(startPosition.x,startPosition.y+flyHeight,startPosition.z)
 			
 			
 			#二次贝塞尔曲线插值
@@ -118,22 +133,21 @@ func FlyPathCal():
 			curves.add_point(p0)
 			for i in range(interpolationNum):
 			
-				point=_quadratic_bezier(p0,p1,startPosition,t)
+				point=quadraticBezier(p0,p1,startPosition,t)
 				t+=t_delta
 				curves.add_point(point)
 
 			curves.add_point(startPosition)
 #	GlobalImmediateGeometry_debug.create_line(curves.get_baked_points( ))
-	pathNode.curve=curves
-	pathFollowNode.unit_offset=0
+
 	pass
 
-func _quadratic_bezier(p0: Vector3, p1: Vector3, p2: Vector3, t: float):
+func quadraticBezier(p0: Vector3, p1: Vector3, p2: Vector3, t: float):
 	var q0 = p0.linear_interpolate(p1, t)
 	var q1 = p1.linear_interpolate(p2, t)
 	var r = q0.linear_interpolate(q1, t)
 	return r
-func _cubic_bezier(p0: Vector3, p1: Vector3, p2: Vector3, p3: Vector3, t: float):
+func cubicBezier(p0: Vector3, p1: Vector3, p2: Vector3, p3: Vector3, t: float):
 	var q0 = p0.linear_interpolate(p1, t)
 	var q1 = p1.linear_interpolate(p2, t)
 	var q2 = p2.linear_interpolate(p3, t)
@@ -144,8 +158,8 @@ func _cubic_bezier(p0: Vector3, p1: Vector3, p2: Vector3, p3: Vector3, t: float)
 	var s = r0.linear_interpolate(r1, t)
 	return s
 	
-func move_along_path(delta):
-	if(velocity.length()<max_fly_speed):
+func moveAlongPath(delta):
+	if(velocity.length()<maxFlySpeed):
 		velocity.y += acceleration * delta
 
 	pathFollowNode.offset+=velocity.length()* delta
@@ -153,6 +167,23 @@ func move_along_path(delta):
 	velocity=(pathFollowNode.translation-parentNode.translation).normalized()* velocity.length()
 	
 	velocity=parentNode.move_and_slide(velocity)
-func fly_to_ground():
+func SmoothJoinPathCal():
+	#用Cubic Bezie平滑当前路径和下一段路径
+	curvesSmoothJoin.clear_points()
+	var p0=parentNode.translation
+	var p1=curvesCurrentPoint[-1]
+	var p2=curves.get_baked_points()[0]
+	var p3=curves.get_baked_points()[1]
+
+	var t_delta=1.0/(interpolationNum+1)
+	var t=t_delta
+	curvesSmoothJoin.add_point(p0)
+	for i in range(interpolationNum/2):
+		point =cubicBezier(p0,p1,p2,p3,t)
+		t+=t_delta
+		curvesSmoothJoin.add_point(point)
+	curvesSmoothJoin.add_point(p3)
+	
+func flyToGround():
 	currentFlyPhase=FlyPhase.Down
-	FlyPathCal()
+	FlyPathCal(FlyPhase.Down)

@@ -96,5 +96,5 @@ func ExcuteAction():
 		
 	pass
 func GourndAction():
-	actionInstance.fly_to_ground()
+	actionInstance.flyToGround()
 	pass
