@@ -10,12 +10,15 @@ var empty_data = {
 signal input_activate(dict)
 signal output_success(dict)
 
+var parentNode
+
 func _enter_tree():
 	self.connect("input_activate", self, "run")
-	print("BasicAction connect")
+	
 	
 func run(data):
-	print("BasicAction run")
+	parentNode=get_parent()
+
 #	emit_signal("output_success")
 	pass
 
