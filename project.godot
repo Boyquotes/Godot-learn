@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Spatial",
+"class": "AnimationPlayerController",
+"language": "GDScript",
+"path": "res://sceneList/zone0005_disco/script/AnimationPlayerController.gd"
+}, {
 "base": "Node",
 "class": "BasicAction",
 "language": "GDScript",
@@ -40,6 +45,7 @@ _global_script_classes=[ {
 "path": "res://script/demo18_3D/Actions/vanlish.gd"
 } ]
 _global_script_class_icons={
+"AnimationPlayerController": "",
 "BasicAction": "",
 "FlyAction": "",
 "JumpAction": "",

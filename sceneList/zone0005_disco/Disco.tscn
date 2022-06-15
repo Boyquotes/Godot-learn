@@ -50,7 +50,7 @@
 [ext_resource path="res://sceneList/zone0005_disco/effect/Fn_slabs_00_02FX.tscn" type="PackedScene" id=49]
 [ext_resource path="res://sceneList/zone0005_disco/effect/Fn_slabs_00_01FX.tscn" type="PackedScene" id=50]
 [ext_resource path="res://sceneList/zone0005_disco/disco_envi.tres" type="Environment" id=51]
-[ext_resource path="res://sceneList/zone0005_disco/script/disco.gd" type="Script" id=58]
+[ext_resource path="res://sceneList/zone0005_disco/script/Disco.gd" type="Script" id=58]
 
 [sub_resource type="ArrayMesh" id=2]
 resource_name = "App_Spotlights01_01_FX_立方体004"
@@ -293,6 +293,7 @@ surfaces/0 = {
 }
 
 [node name="disco" type="Spatial"]
+visible = false
 script = ExtResource( 58 )
 
 [node name="Fn01" type="Spatial" parent="."]
@@ -7172,22 +7173,16 @@ __meta__ = {
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 56.3071, 3.6374, 42.1234 )
 
 [node name="Fn_dice_06" parent="Fn_dice/Fn_dice_00" instance=ExtResource( 22 )]
-visible = false
 
 [node name="Fn_dice_02" parent="Fn_dice/Fn_dice_00" instance=ExtResource( 25 )]
-visible = false
 
 [node name="Fn_dice_03" parent="Fn_dice/Fn_dice_00" instance=ExtResource( 26 )]
-visible = false
 
 [node name="Fn_dice_04" parent="Fn_dice/Fn_dice_00" instance=ExtResource( 27 )]
-visible = false
 
 [node name="Fn_dice_05" parent="Fn_dice/Fn_dice_00" instance=ExtResource( 23 )]
-visible = false
 
 [node name="Fn_dice_01" parent="Fn_dice/Fn_dice_00" instance=ExtResource( 28 )]
-visible = false
 
 [node name="prospect" type="Spatial" parent="."]
 
@@ -8115,7 +8110,7 @@ shadow_bias = 1.0
 environment = ExtResource( 51 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.934, 19.958 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.497311, 13.5554, 24.658 )
 
 [node name="Control" type="Control" parent="."]
 margin_right = 40.0
@@ -8152,6 +8147,18 @@ margin_top = 6.0
 margin_bottom = 22.0
 text = "Obj"
 
+[node name="OptionAni" type="OptionButton" parent="Control/Panel"]
+margin_left = 72.0
+margin_top = 78.0
+margin_right = 239.0
+margin_bottom = 105.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/Panel/OptionAni"]
+margin_left = -39.0
+margin_top = 6.0
+margin_bottom = 22.0
+text = "Ani"
+
 [node name="ButtonSet" type="Button" parent="Control/Panel"]
 margin_left = 162.0
 margin_top = 182.0
@@ -8160,46 +8167,30 @@ margin_bottom = 202.0
 text = "Set"
 
 [node name="ModeTimer" type="Control" parent="Control/Panel"]
-visible = false
+margin_top = 6.0
 margin_right = 40.0
-margin_bottom = 40.0
+margin_bottom = 46.0
 
 [node name="Interval" type="Control" parent="Control/Panel/ModeTimer"]
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/Panel/ModeTimer/Interval"]
+[node name="RichTextInterval" type="RichTextLabel" parent="Control/Panel/ModeTimer/Interval"]
 margin_left = 16.0
 margin_top = 115.0
 margin_right = 78.0
 margin_bottom = 130.0
 text = "interval"
 
-[node name="TextEdit" type="TextEdit" parent="Control/Panel/ModeTimer/Interval"]
+[node name="TextEditInterval" type="TextEdit" parent="Control/Panel/ModeTimer/Interval"]
 margin_left = 74.0
 margin_top = 107.0
 margin_right = 239.0
 margin_bottom = 132.0
-
-[node name="PlaySpeed" type="Control" parent="Control/Panel/ModeTimer"]
-margin_top = 30.0
-margin_right = 40.0
-margin_bottom = 70.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/Panel/ModeTimer/PlaySpeed"]
-margin_left = 24.0
-margin_top = 117.0
-margin_right = 86.0
-margin_bottom = 132.0
-text = "speed"
-
-[node name="TextEdit" type="TextEdit" parent="Control/Panel/ModeTimer/PlaySpeed"]
-margin_left = 74.0
-margin_top = 107.0
-margin_right = 239.0
-margin_bottom = 132.0
+text = "1.0"
 
 [node name="ModeInstruct" type="Control" parent="Control/Panel"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 

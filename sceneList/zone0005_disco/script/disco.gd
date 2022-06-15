@@ -1,7 +1,15 @@
 extends Spatial
-enum PlayMode{ByTimer,ByInstruction}
-enum InstructionType{Start,Stop}
+
+var modeOption
+var objOption
+var aniOption
+var instrOption
+
+
+
 onready var animationPlayerNode:Array= []
+onready var controllerScript=preload("res://sceneList/zone0005_disco/script/AnimationPlayerController.gd" )
+
 
 func _ready():
 	
@@ -10,8 +18,6 @@ func _ready():
 	# Setp 2 : shwo in UI
 	InitButton()
 
-	pass
-	
 	
 func FindAnimationPlayerNodeInTree(root:Node,res:Array):
 	
@@ -19,35 +25,73 @@ func FindAnimationPlayerNodeInTree(root:Node,res:Array):
 		res.append(root)
 	for childNode in root.get_children():
 		FindAnimationPlayerNodeInTree(childNode,res)
-	pass
-
-
 
 #检查 AnimationPlayer Node是否满足某种条件（例如，它的父节点是Spatial节点）  不满足条件的不通过
 func CheckAdd(node:Node):
-	
-	
 	if(node.get_parent() is Spatial):
 		return true
 	else:
 		return false
-	
-	pass
-
 
 func InitButton():
 	# init option mode
 	
-	var modeOption = find_node("OptionMode")
-	for item in PlayMode:
+	modeOption = find_node("OptionMode")
+	modeOption.connect("item_selected",self,"UIUpdateMode")
+
+	for item in AnimationPlayerController.PlayMode:
 		modeOption.add_item(item)
 
-	
-	var objOption = find_node("OptionObj")
+	objOption = find_node("OptionObj")
+	objOption.connect("item_selected",self,"UIUpdateAnimation")
 	for node in animationPlayerNode:
-		objOption.add_item(node.get_path())
+		objOption.add_item(node.get_path())                    
 		
-	var instrOption = find_node("OptionInstr")
-	for item in InstructionType:
+	aniOption= find_node("OptionAni")
+	for animation in animationPlayerNode[objOption.get_selected_id()].get_animation_list ( ):
+		aniOption.add_item(animation)    
+			
+	instrOption = find_node("OptionInstr")
+	for item in AnimationPlayerController.InstructionType:
 		instrOption.add_item(item)
-	pass
+
+	var setButton = find_node("ButtonSet")
+	setButton.connect("pressed",self,"AddScript")
+
+
+func AddScript():
+	#Step 1:获取要操作的obj的id和对应的父节点
+	var objOptionID=objOption.get_selected_id()
+	var controllerNode=animationPlayerNode[objOptionID].get_parent()
+	
+	#Step 2:向要操作的obj的父节点添加控制脚本
+	controllerNode.set_script(controllerScript)
+
+	#Step 3:从UI获取参数
+	var modeOptionID=modeOption.get_selected_id()
+	var instrOptionID=instrOption.get_selected_id()
+	var IntervalValue = float(find_node("TextEditInterval").get_line(0))
+	
+	#Step 4:动画名字，指令(Loop,OneShot,Stop,None+timer)，间隔
+	controllerNode.SetPlay(modeOptionID,animationPlayerNode[objOptionID],aniOption.get_item_text(aniOption.get_selected_id()),instrOptionID,IntervalValue)
+	
+
+func UIUpdateMode(i):
+	var ModeTimerNode = find_node("ModeTimer")
+	var ModeInstructNode = find_node("ModeInstruct")
+	print("UI update")
+	match i:
+		AnimationPlayerController.PlayMode.ByInstruction:
+			ModeTimerNode.hide()
+			ModeInstructNode.show()
+			print("PlayMode.ByInstruction")
+		AnimationPlayerController.PlayMode.ByTimer:
+			ModeTimerNode.show()
+			ModeInstructNode.hide()
+			print("PlayMode.ByTimer")
+			
+func UIUpdateAnimation(i):
+	aniOption= find_node("OptionAni")
+	aniOption.clear()
+	for animation in animationPlayerNode[i].get_animation_list ( ):
+		aniOption.add_item(animation)   
