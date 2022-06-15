@@ -1,4 +1,7 @@
 extends Spatial
+#用于控制AnimationPlayer的脚本，使用时挂载到AnimationPlayer的父节点
+#接口1 SetPlay：动画名字，指令(Loop,OneShot,Stop,ByTimer)，间隔（仅当指令为ByTimer有用）
+#接口2 getAnimation：返回所控制的AnimationPlayer所有动画名字
 
 class_name AnimationPlayerController
 
@@ -6,40 +9,47 @@ var animationPlayer:AnimationPlayer
 var timerNode:Timer
 var animationName:String
 
-enum PlayMode{ByTimer,ByInstruction}
-enum InstructionType{Loop,OneShot,Stop,None}
+enum InstructionType{Loop,OneShot,Stop,ByTimer,None}
 
-
-onready var playMode=PlayMode.ByInstruction
 onready var instructionType=InstructionType.None
 onready var intervalTime=1.0;
 
-func _init():
-	set_process(true)
 
-func SetAnimationPlayer(AnimationPlayerNode:AnimationPlayer):
-	animationPlayer=AnimationPlayerNode
-
-func SetPlay(_playMode,_animationPlayer:AnimationPlayer,_animationName,_instructionType,_intervalTime:float):
+func SetPlay(_animationName,_instructionType,_intervalTime:float):
 	# how to check enum type? https://godotengine.org/qa/55016/instanceof-enum-type
-	playMode=_playMode
 	instructionType=_instructionType
 	intervalTime=_intervalTime
 	animationName=_animationName
-	animationPlayer=_animationPlayer
 
-	match playMode:
-		PlayMode.ByInstruction:
-			InstructionProcess()
-			removeTimer()
-		PlayMode.ByTimer:
-			print("ByTimer")
+	match instructionType:
+		InstructionType.ByTimer:
+			
 			timerNode=Timer.new()
 			timerNode.wait_time=intervalTime
 			self.add_child(timerNode)
 			animationPlayer.connect("animation_finished",self,"StartTimer")
 			timerNode.connect("timeout", self, "AnimationPlayOneShot")
 			timerNode.start()
+		_:
+			InstructionProcess()
+			removeTimer()
+
+func getAnimation():
+	return animationPlayer.get_animation_list()
+
+func _init():
+	set_process(true)
+	FindAnimationPlayerNodeInTree(self)
+	print(getAnimation())
+
+func FindAnimationPlayerNodeInTree(root:Node):
+	if animationPlayer !=null:
+		return
+	if root is AnimationPlayer:
+		animationPlayer=root
+		return
+	for childNode in root.get_children():
+		FindAnimationPlayerNodeInTree(childNode)
 
 func InstructionProcess():
 	match instructionType:
@@ -54,26 +64,25 @@ func InstructionProcess():
 		InstructionType.Stop:
 			AnimationStop()
 			instructionType=InstructionType.None
-			
+
 func StartTimer(animationName):
-	print("timerNode start")
-	timerNode.start()
-	
+	if instructionType==InstructionType.ByTimer:
+		timerNode.start()
+
 func AnimationPlayOneShot():
-	print("AnimationPlayOneShot")
-	AnimationPlay(false)
 	
+	AnimationPlay(false)
+
 func AnimationPlay(isLoop):
 	for animation in animationPlayer.get_animation_list():
 		if(animationName and animation==animationName):
 			animationPlayer.get_animation(animationName).set_loop(isLoop)
 			animationPlayer.play(animationName)
-			if(timerNode !=null):
-				print("timerNode stop")
+			if instructionType==InstructionType.ByTimer:
 				timerNode.stop()
 			return
 	print("There is no animation named "+animationName)
-	
+
 func AnimationStop():
 	for animation in animationPlayer.get_animation_list():
 		if(animationName and animation==animationName):
@@ -81,8 +90,9 @@ func AnimationStop():
 			return
 	print("There is no animation named "+animationName)
 
-
 func removeTimer():
 	for node in get_children():
 		if(node.get_class()=="Timer"): 
 			node.queue_free()
+
+

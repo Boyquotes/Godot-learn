@@ -34,13 +34,6 @@ func CheckAdd(node:Node):
 		return false
 
 func InitButton():
-	# init option mode
-	
-	modeOption = find_node("OptionMode")
-	modeOption.connect("item_selected",self,"UIUpdateMode")
-
-	for item in AnimationPlayerController.PlayMode:
-		modeOption.add_item(item)
 
 	objOption = find_node("OptionObj")
 	objOption.connect("item_selected",self,"UIUpdateAnimation")
@@ -52,6 +45,7 @@ func InitButton():
 		aniOption.add_item(animation)    
 			
 	instrOption = find_node("OptionInstr")
+	instrOption.connect("item_selected",self,"UIUpdateInstr")
 	for item in AnimationPlayerController.InstructionType:
 		instrOption.add_item(item)
 
@@ -68,27 +62,23 @@ func AddScript():
 	controllerNode.set_script(controllerScript)
 
 	#Step 3:从UI获取参数
-	var modeOptionID=modeOption.get_selected_id()
+
 	var instrOptionID=instrOption.get_selected_id()
 	var IntervalValue = float(find_node("TextEditInterval").get_line(0))
 	
-	#Step 4:动画名字，指令(Loop,OneShot,Stop,None+timer)，间隔
-	controllerNode.SetPlay(modeOptionID,animationPlayerNode[objOptionID],aniOption.get_item_text(aniOption.get_selected_id()),instrOptionID,IntervalValue)
+	#Step 4:动画名字，指令(Loop,OneShot,Stop,timer)，间隔
+	controllerNode.SetPlay(aniOption.get_item_text(aniOption.get_selected_id()),instrOptionID,IntervalValue)
 	
 
-func UIUpdateMode(i):
+func UIUpdateInstr(i):
 	var ModeTimerNode = find_node("ModeTimer")
-	var ModeInstructNode = find_node("ModeInstruct")
+
 	print("UI update")
 	match i:
-		AnimationPlayerController.PlayMode.ByInstruction:
-			ModeTimerNode.hide()
-			ModeInstructNode.show()
-			print("PlayMode.ByInstruction")
-		AnimationPlayerController.PlayMode.ByTimer:
+		AnimationPlayerController.InstructionType.ByTimer:
 			ModeTimerNode.show()
-			ModeInstructNode.hide()
-			print("PlayMode.ByTimer")
+		_:
+			ModeTimerNode.hide()
 			
 func UIUpdateAnimation(i):
 	aniOption= find_node("OptionAni")
