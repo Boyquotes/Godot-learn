@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Follow Me - Andrew Langdon.mp3-d88b4e3e9b73ba28ea55daea117d4eaa.mp3str"
+
+[deps]
+
+source_file="res://sceneList/demo15_audio/audio/Follow Me - Andrew Langdon.mp3"
+dest_files=[ "res://.import/Follow Me - Andrew Langdon.mp3-d88b4e3e9b73ba28ea55daea117d4eaa.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

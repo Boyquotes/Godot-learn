@@ -1,0 +1,151 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://script/demo18_3D/Game18.gd" type="Script" id=2]
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 15, 0.5, 15 )
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 30, 1, 30 )
+
+[sub_resource type="BoxShape" id=3]
+
+[sub_resource type="CubeMesh" id=2]
+
+[sub_resource type="VisualShaderNodeColorUniform" id=7]
+uniform_name = "ColorUniform"
+
+[sub_resource type="VisualShaderNodeScalarUniform" id=8]
+uniform_name = "AlphaUniform"
+
+[sub_resource type="VisualShader" id=5]
+code = "shader_type spatial;
+render_mode specular_schlick_ggx;
+
+uniform vec4 ColorUniform : hint_color;
+uniform float AlphaUniform;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// ColorUniform:3
+	vec3 n_out3p0 = ColorUniform.rgb;
+	float n_out3p1 = ColorUniform.a;
+
+// ScalarUniform:4
+	float n_out4p0 = AlphaUniform;
+
+// Output:0
+	ALBEDO = n_out3p0;
+	ALPHA = n_out4p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -485.511, -47 )
+nodes/fragment/3/node = SubResource( 7 )
+nodes/fragment/3/position = Vector2( -60, 100 )
+nodes/fragment/4/node = SubResource( 8 )
+nodes/fragment/4/position = Vector2( -60, 240 )
+nodes/fragment/connections = PoolIntArray( 3, 0, 0, 0, 4, 0, 0, 1 )
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 5 )
+shader_param/ColorUniform = Color( 1, 0, 0, 0.0705882 )
+shader_param/AlphaUniform = 1.0
+
+[node name="Game" type="Spatial"]
+script = ExtResource( 2 )
+objOptionPath = NodePath("GUI/Panel/ObjectOption")
+actOptionPath = NodePath("GUI/Panel/ActionOption")
+excuteButtonPath = NodePath("GUI/Panel/Button")
+groundButtonPath = NodePath("GUI/Panel/Button2")
+objectsArray = [ NodePath("Cube") ]
+
+[node name="Ground" type="Spatial" parent="."]
+
+[node name="StaticBody" type="StaticBody" parent="Ground"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Ground/StaticBody"]
+shape = SubResource( 4 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Ground/StaticBody"]
+mesh = SubResource( 1 )
+skeleton = NodePath("../..")
+material/0 = null
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.891251, -0.199836, 0.407109, 0.02026, 0.914331, 0.404461, -0.453058, -0.352228, 0.818947, 6.12325, 15.5472, 16.9715 )
+
+[node name="Cube" type="KinematicBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.62284, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Cube"]
+shape = SubResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Cube"]
+mesh = SubResource( 2 )
+material/0 = SubResource( 6 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.489991, 0.871727, 0, -0.871727, 0.489991, 0, 5.73804, 0 )
+light_energy = 0.426
+light_indirect_energy = 0.096
+
+[node name="GUI" type="Control" parent="."]
+margin_right = 1026.0
+margin_bottom = 600.0
+
+[node name="Panel" type="Panel" parent="GUI"]
+margin_right = 293.0
+margin_bottom = 133.0
+
+[node name="ObjectOption" type="OptionButton" parent="GUI/Panel"]
+margin_left = 91.0
+margin_top = 17.0
+margin_right = 282.0
+margin_bottom = 49.0
+rect_pivot_offset = Vector2( 109, 6 )
+
+[node name="TextEdit" type="TextEdit" parent="GUI/Panel/ObjectOption"]
+margin_left = -63.0
+margin_top = 1.0
+margin_right = -6.0
+margin_bottom = 33.0
+text = "Obj"
+
+[node name="ActionOption" type="OptionButton" parent="GUI/Panel"]
+margin_left = 91.0
+margin_top = 54.0
+margin_right = 282.0
+margin_bottom = 86.0
+rect_pivot_offset = Vector2( 109, 6 )
+
+[node name="TextEdit" type="TextEdit" parent="GUI/Panel/ActionOption"]
+margin_left = -63.0
+margin_right = -6.0
+margin_bottom = 32.0
+text = "Action"
+
+[node name="Button" type="Button" parent="GUI/Panel"]
+margin_left = 183.0
+margin_top = 95.0
+margin_right = 280.0
+margin_bottom = 118.0
+text = "Start"
+
+[node name="Button2" type="Button" parent="GUI/Panel"]
+margin_left = 75.0
+margin_top = 95.0
+margin_right = 172.0
+margin_bottom = 118.0
+text = "Fly back"
