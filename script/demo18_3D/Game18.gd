@@ -13,12 +13,13 @@ onready var actOption = get_node(actOptionPath)
 onready var excButton = get_node(excuteButtonPath)
 onready var groundButton = get_node(groundButtonPath)
 
-enum ActionType{BounceJump, Fly, Rotate}
+enum ActionType{BounceJump, Fly, Rotate, Vanlish}
 
 var buttonState=false
 var actionInstance
 func _ready():
 	InitButton()
+	
 	pass # Replace with function body.
 
 
@@ -75,7 +76,7 @@ func ExcuteAction():
 				#移除Action
 				object.remove_child(actionInstance)
 				excButton.text="Start"
-		_:
+		ActionType.Rotate:
 			if(not buttonState):
 				buttonState=true
 				#找到要添加Action的节点
@@ -93,7 +94,24 @@ func ExcuteAction():
 				#移除Action
 				object.remove_child(actionInstance)
 				excButton.text="Start"
-		
+		ActionType.VanlishAction:
+			if(not buttonState):
+				buttonState=true
+				#找到要添加Action的节点
+				var object=get_node(objectsArray[objSelectedId])
+				#添加Action
+				actionInstance=VanlishAction.new()
+				object.add_child(actionInstance)
+				#执行Action
+				actionInstance.emit_signal("input_activate",null)
+				excButton.text="Stop"
+			else:
+				buttonState=false
+				#找到要移除Action的节点
+				var object=get_node(objectsArray[objSelectedId])
+				#移除Action
+				object.remove_child(actionInstance)
+				excButton.text="Start"
 	pass
 func GourndAction():
 	actionInstance.fly_to_ground()
