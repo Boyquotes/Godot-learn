@@ -57,7 +57,7 @@ _global_script_class_icons={
 [application]
 
 config/name="godot-start"
-run/main_scene="res://sceneList/demo01_hello/hello_world.tscn"
+run/main_scene="res://sceneList/demo20_DebugTool/Debug.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -66,8 +66,10 @@ GlobalImmediateGeometry_debug="*res://sceneList/demo18_3D_test/debug/ImmediateGe
 
 [display]
 
-window/stretch/mode="2d"
-window/stretch/aspect="keep"
+window/size/width=1080
+window/size/height=1920
+window/dpi/allow_hidpi=true
+window/handheld/orientation="portrait"
 
 [input]
 
