@@ -57,7 +57,7 @@ _global_script_class_icons={
 [application]
 
 config/name="godot-start"
-run/main_scene="res://sceneList/demo20_DebugTool/Debug.tscn"
+run/main_scene="res://sceneList/zone0005_disco/Disco.tscn"
 config/icon="res://icon.png"
 
 [autoload]
