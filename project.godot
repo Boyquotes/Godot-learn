@@ -57,7 +57,7 @@ _global_script_class_icons={
 [application]
 
 config/name="godot-start"
-run/main_scene="res://sceneList/zone0005_disco/Disco.tscn"
+run/main_scene="res://sceneList/demo21_camera/3D_test.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -66,8 +66,8 @@ GlobalImmediateGeometry_debug="*res://sceneList/demo18_3D_test/debug/ImmediateGe
 
 [display]
 
-window/size/width=1080
-window/size/height=1920
+window/size/width=1920
+window/size/height=1080
 window/dpi/allow_hidpi=true
 window/handheld/orientation="portrait"
 

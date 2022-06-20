@@ -8,7 +8,7 @@ var debugLayout
 var networkString="{\"name\":\"格式1\",\"stringFormats\":[{\"word_num\":1,\"word_length_max\":4,\"word_length_min\":2,\"size\":32,\"text_color\":\"#F8F8FF\",\"height\":\"32\",\"orientation\":0,\"space_width\":0,\"character_spacing\":0,\"fit\":\"True\",\"word_split\":\"False\",\"position\":{\"x\":800,\"y\":40}},{\"word_num\":1,\"word_length_max\":1,\"word_length_min\":1,\"size\":32,\"text_color\":\"#000000\",\"height\":\"32\",\"orientation\":0,\"space_width\":0,\"character_spacing\":0,\"fit\":\"True\",\"word_split\":\"False\",\"position\":{\"x\":60,\"y\":500}},{\"word_num\":1,\"word_length_max\":2,\"word_length_min\":1,\"size\":32,\"text_color\":\"#000000\",\"height\":\"32\",\"orientation\":0,\"space_width\":0,\"character_spacing\":0,\"fit\":\"True\",\"word_split\":\"False\",\"position\":{\"x\":300,\"y\":500}}]}"
 # fake debug variable
 var roomID="4216t1251531r1tg14534"
-var userToken="rgheriowughio1yht24oh409iugejkb093hjy901243ut9043jtkgeiqjbh3i[ouyhj234i0="
+var userToken="asfsagheriowughio1yh"
 
 func _ready():
 	

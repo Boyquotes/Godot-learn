@@ -7664,7 +7664,7 @@ material/0 = null
 [node name="Arc_ground_01" parent="basis" instance=ExtResource( 9 )]
 
 [node name="Arc_building_01" parent="basis" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5436, 0, -64.1461 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.8987, -33.3808, -46.6147 )
 
 [node name="Arc_Walls_01" parent="basis" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0754399, 2.60779, -61.9378 )
