@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://sceneList/demo21_camera/Scripts/Game.gd" type="Script" id=1]
+[ext_resource path="res://font/SourceHanSansCN-Bold.otf" type="DynamicFontData" id=2]
 
 [sub_resource type="BoxShape" id=4]
 extents = Vector3( 15, 0.5, 15 )
@@ -68,6 +69,11 @@ shader_param/AlphaUniform = 1.0
 [sub_resource type="SpatialMaterial" id=10]
 albedo_color = Color( 0, 1, 0.811765, 1 )
 
+[sub_resource type="DynamicFont" id=11]
+outline_size = 1
+outline_color = Color( 1, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
 [node name="Game" type="Spatial"]
 script = ExtResource( 1 )
 
@@ -130,16 +136,28 @@ margin_top = 20.0
 margin_right = -20.0
 margin_bottom = -20.0
 
-[node name="HBoxCamera" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
+[node name="---Mode---" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
 margin_right = 460.0
-margin_bottom = 40.0
+margin_bottom = 17.0
 
-[node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxCamera"]
+[node name="Label" type="Label" parent="GUI/Panel/VBoxContainer/---Mode---"]
+margin_right = 43.0
+margin_bottom = 17.0
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 11 )
+text = "Mode"
+
+[node name="HBoxCameraMode" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
+margin_top = 21.0
+margin_right = 460.0
+margin_bottom = 61.0
+
+[node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxCameraMode"]
 margin_right = 160.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 160, 40 )
 
-[node name="Label" type="Label" parent="GUI/Panel/VBoxContainer/HBoxCamera/CenterContainer"]
+[node name="Label" type="Label" parent="GUI/Panel/VBoxContainer/HBoxCameraMode/CenterContainer"]
 margin_left = 36.0
 margin_top = 13.0
 margin_right = 124.0
@@ -147,24 +165,186 @@ margin_bottom = 27.0
 size_flags_vertical = 1
 text = "Camera Mode"
 
-[node name="Empty" type="Label" parent="GUI/Panel/VBoxContainer/HBoxCamera"]
+[node name="Empty" type="Label" parent="GUI/Panel/VBoxContainer/HBoxCameraMode"]
 margin_left = 164.0
 margin_top = 13.0
 margin_right = 174.0
 margin_bottom = 27.0
 rect_min_size = Vector2( 10, 0 )
 
-[node name="OptionButton" type="OptionButton" parent="GUI/Panel/VBoxContainer/HBoxCamera"]
+[node name="OptionButton" type="OptionButton" parent="GUI/Panel/VBoxContainer/HBoxCameraMode"]
 margin_left = 178.0
 margin_right = 460.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 240, 40 )
 size_flags_horizontal = 3
 
-[node name="HBoxLookAt" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
-margin_top = 44.0
+[node name="HBoxCameraSubMode" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
+margin_top = 65.0
 margin_right = 460.0
-margin_bottom = 84.0
+margin_bottom = 105.0
+
+[node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxCameraSubMode"]
+margin_right = 160.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 160, 40 )
+
+[node name="Label" type="Label" parent="GUI/Panel/VBoxContainer/HBoxCameraSubMode/CenterContainer"]
+margin_left = 24.0
+margin_top = 13.0
+margin_right = 135.0
+margin_bottom = 27.0
+size_flags_vertical = 1
+text = "Camera SubMode"
+
+[node name="Empty" type="Label" parent="GUI/Panel/VBoxContainer/HBoxCameraSubMode"]
+margin_left = 164.0
+margin_top = 13.0
+margin_right = 174.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 10, 0 )
+
+[node name="OptionButton" type="OptionButton" parent="GUI/Panel/VBoxContainer/HBoxCameraSubMode"]
+margin_left = 178.0
+margin_right = 460.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 240, 40 )
+size_flags_horizontal = 3
+
+[node name="---Common---" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
+margin_top = 109.0
+margin_right = 460.0
+margin_bottom = 126.0
+
+[node name="Label" type="Label" parent="GUI/Panel/VBoxContainer/---Common---"]
+margin_right = 71.0
+margin_bottom = 17.0
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 11 )
+text = "Common"
+
+[node name="HBoxCameraProjection" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
+margin_top = 130.0
+margin_right = 460.0
+margin_bottom = 170.0
+
+[node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxCameraProjection"]
+margin_right = 160.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 160, 40 )
+
+[node name="Label" type="Label" parent="GUI/Panel/VBoxContainer/HBoxCameraProjection/CenterContainer"]
+margin_left = 27.0
+margin_top = 13.0
+margin_right = 132.0
+margin_bottom = 27.0
+size_flags_vertical = 1
+text = "Projection Mode"
+
+[node name="Empty" type="Label" parent="GUI/Panel/VBoxContainer/HBoxCameraProjection"]
+margin_left = 164.0
+margin_top = 13.0
+margin_right = 174.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 10, 0 )
+
+[node name="OptionButton" type="OptionButton" parent="GUI/Panel/VBoxContainer/HBoxCameraProjection"]
+margin_left = 178.0
+margin_right = 460.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 240, 40 )
+size_flags_horizontal = 3
+
+[node name="HBoxChangeLerp" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
+margin_top = 174.0
+margin_right = 460.0
+margin_bottom = 214.0
+
+[node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxChangeLerp"]
+margin_right = 160.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 160, 40 )
+
+[node name="Label" type="Label" parent="GUI/Panel/VBoxContainer/HBoxChangeLerp/CenterContainer"]
+margin_left = 66.0
+margin_top = 13.0
+margin_right = 94.0
+margin_bottom = 27.0
+size_flags_vertical = 1
+text = "Lerp"
+
+[node name="Empty" type="Label" parent="GUI/Panel/VBoxContainer/HBoxChangeLerp"]
+margin_left = 164.0
+margin_top = 13.0
+margin_right = 174.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 10, 0 )
+
+[node name="Speed" type="HBoxContainer" parent="GUI/Panel/VBoxContainer/HBoxChangeLerp"]
+margin_left = 178.0
+margin_right = 317.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="Speed" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxChangeLerp/Speed"]
+margin_right = 39.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="GUI/Panel/VBoxContainer/HBoxChangeLerp/Speed/Speed"]
+margin_top = 13.0
+margin_right = 39.0
+margin_bottom = 27.0
+text = "Speed"
+
+[node name="TextEdit" type="TextEdit" parent="GUI/Panel/VBoxContainer/HBoxChangeLerp/Speed"]
+margin_left = 43.0
+margin_right = 103.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 60, 0 )
+text = "30"
+
+[node name="Swicth" type="HBoxContainer" parent="GUI/Panel/VBoxContainer/HBoxChangeLerp"]
+margin_left = 321.0
+margin_right = 460.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="Speed2" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxChangeLerp/Swicth"]
+margin_right = 41.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="GUI/Panel/VBoxContainer/HBoxChangeLerp/Swicth/Speed2"]
+margin_top = 13.0
+margin_right = 41.0
+margin_bottom = 27.0
+text = "Switch"
+
+[node name="Switch" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxChangeLerp/Swicth"]
+margin_left = 45.0
+margin_right = 121.0
+margin_bottom = 40.0
+
+[node name="CheckButton" type="CheckButton" parent="GUI/Panel/VBoxContainer/HBoxChangeLerp/Swicth/Switch"]
+margin_right = 76.0
+margin_bottom = 40.0
+pressed = true
+
+[node name="---Special---" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
+margin_top = 218.0
+margin_right = 460.0
+margin_bottom = 235.0
+
+[node name="Label" type="Label" parent="GUI/Panel/VBoxContainer/---Special---"]
+margin_right = 56.0
+margin_bottom = 17.0
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 11 )
+text = "Special"
+
+[node name="HBoxLookAt" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
+margin_top = 239.0
+margin_right = 460.0
+margin_bottom = 279.0
 
 [node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxLookAt"]
 margin_right = 160.0
@@ -194,9 +374,9 @@ rect_min_size = Vector2( 240, 40 )
 size_flags_horizontal = 3
 
 [node name="HBoxFollow" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
-margin_top = 88.0
+margin_top = 283.0
 margin_right = 460.0
-margin_bottom = 128.0
+margin_bottom = 323.0
 
 [node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxFollow"]
 margin_right = 160.0
@@ -225,42 +405,10 @@ margin_bottom = 40.0
 rect_min_size = Vector2( 240, 40 )
 size_flags_horizontal = 3
 
-[node name="HBoxCameraProjection" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
-margin_top = 132.0
-margin_right = 460.0
-margin_bottom = 172.0
-
-[node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxCameraProjection"]
-margin_right = 160.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 160, 40 )
-
-[node name="Label" type="Label" parent="GUI/Panel/VBoxContainer/HBoxCameraProjection/CenterContainer"]
-margin_left = 27.0
-margin_top = 13.0
-margin_right = 132.0
-margin_bottom = 27.0
-size_flags_vertical = 1
-text = "Projection Mode"
-
-[node name="Empty" type="Label" parent="GUI/Panel/VBoxContainer/HBoxCameraProjection"]
-margin_left = 164.0
-margin_top = 13.0
-margin_right = 174.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 10, 0 )
-
-[node name="OptionButton" type="OptionButton" parent="GUI/Panel/VBoxContainer/HBoxCameraProjection"]
-margin_left = 178.0
-margin_right = 460.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 240, 40 )
-size_flags_horizontal = 3
-
 [node name="HBoxDistance" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
-margin_top = 176.0
+margin_top = 327.0
 margin_right = 460.0
-margin_bottom = 216.0
+margin_bottom = 367.0
 
 [node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxDistance"]
 margin_right = 160.0
@@ -343,9 +491,9 @@ rect_min_size = Vector2( 60, 0 )
 text = "200"
 
 [node name="HBoxDistanceScroll" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
-margin_top = 220.0
+margin_top = 371.0
 margin_right = 460.0
-margin_bottom = 260.0
+margin_bottom = 411.0
 
 [node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxDistanceScroll"]
 margin_right = 160.0
@@ -381,9 +529,9 @@ margin_bottom = 26.0
 rect_min_size = Vector2( 240, 12 )
 
 [node name="HBoxAngel" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
-margin_top = 264.0
+margin_top = 415.0
 margin_right = 460.0
-margin_bottom = 304.0
+margin_bottom = 455.0
 
 [node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxAngel"]
 margin_right = 160.0
@@ -419,9 +567,9 @@ margin_bottom = 26.0
 rect_min_size = Vector2( 240, 12 )
 
 [node name="HBoxAutoRotate" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
-margin_top = 308.0
+margin_top = 459.0
 margin_right = 460.0
-margin_bottom = 348.0
+margin_bottom = 499.0
 
 [node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxAutoRotate"]
 margin_right = 160.0
@@ -490,77 +638,3 @@ margin_bottom = 40.0
 [node name="CheckButton" type="CheckButton" parent="GUI/Panel/VBoxContainer/HBoxAutoRotate/Swicth/Switch"]
 margin_right = 76.0
 margin_bottom = 40.0
-
-[node name="HBoxAutoRotate2" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
-margin_top = 352.0
-margin_right = 460.0
-margin_bottom = 392.0
-
-[node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxAutoRotate2"]
-margin_right = 160.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 160, 40 )
-
-[node name="Label" type="Label" parent="GUI/Panel/VBoxContainer/HBoxAutoRotate2/CenterContainer"]
-margin_left = 66.0
-margin_top = 13.0
-margin_right = 94.0
-margin_bottom = 27.0
-size_flags_vertical = 1
-text = "Lerp"
-
-[node name="Empty" type="Label" parent="GUI/Panel/VBoxContainer/HBoxAutoRotate2"]
-margin_left = 164.0
-margin_top = 13.0
-margin_right = 174.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 10, 0 )
-
-[node name="Speed" type="HBoxContainer" parent="GUI/Panel/VBoxContainer/HBoxAutoRotate2"]
-margin_left = 178.0
-margin_right = 317.0
-margin_bottom = 40.0
-size_flags_horizontal = 3
-
-[node name="Speed" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxAutoRotate2/Speed"]
-margin_right = 39.0
-margin_bottom = 40.0
-
-[node name="Label" type="Label" parent="GUI/Panel/VBoxContainer/HBoxAutoRotate2/Speed/Speed"]
-margin_top = 13.0
-margin_right = 39.0
-margin_bottom = 27.0
-text = "Speed"
-
-[node name="TextEdit" type="TextEdit" parent="GUI/Panel/VBoxContainer/HBoxAutoRotate2/Speed"]
-margin_left = 43.0
-margin_right = 103.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 60, 0 )
-text = "30"
-
-[node name="Swicth" type="HBoxContainer" parent="GUI/Panel/VBoxContainer/HBoxAutoRotate2"]
-margin_left = 321.0
-margin_right = 460.0
-margin_bottom = 40.0
-size_flags_horizontal = 3
-
-[node name="Speed2" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxAutoRotate2/Swicth"]
-margin_right = 41.0
-margin_bottom = 40.0
-
-[node name="Label" type="Label" parent="GUI/Panel/VBoxContainer/HBoxAutoRotate2/Swicth/Speed2"]
-margin_top = 13.0
-margin_right = 41.0
-margin_bottom = 27.0
-text = "Switch"
-
-[node name="Switch" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxAutoRotate2/Swicth"]
-margin_left = 45.0
-margin_right = 121.0
-margin_bottom = 40.0
-
-[node name="CheckButton" type="CheckButton" parent="GUI/Panel/VBoxContainer/HBoxAutoRotate2/Swicth/Switch"]
-margin_right = 76.0
-margin_bottom = 40.0
-pressed = true

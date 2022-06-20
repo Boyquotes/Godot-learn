@@ -1,8 +1,10 @@
 extends Spatial
 
-enum CameraMode {Protagonist}
-enum ProjectionMode{Perspective , orthogonal}
+enum CameraMode {Protagonist,FreeLook}
+enum ProtagonistMode{Circle, Sphere}
+enum FreeLookMode{OnPlane}
 
+enum ProjectionMode{Perspective , Orthogonal}
 
 
 func _ready():
@@ -16,12 +18,10 @@ func SetCamera(config:Dictionary):
 #	configDict.projectionMode = ProjectionOption.get_selected_id()
 	
 #	look_at(config.lookAtObj.transform.origin,Vector3.UP)
-	LookAt(config.lookAtObj.transform.origin,Vector3.UP)
+#	LookAt(config.lookAtObj.transform.origin,Vector3.UP)
 	
-	print(transform.basis)
-	print(transform.origin)
-	pass
-
+#	look_at_from_position(Vector3(2,2,2),config.lookAtObj.transform.origin,Vector3.UP)
+	LookAtPosition(Vector3(2,2,2),config.lookAtObj.transform.origin)
 
 #不借助Spatial节点的look_at（）方法自己实现
 func LookAt(taregtPosition,worldUp=Vector3.UP):
@@ -32,4 +32,8 @@ func LookAt(taregtPosition,worldUp=Vector3.UP):
 	var cameraAxis_Y= cameraAxis_Z.cross(cameraAxis_X)
 	
 	transform.basis=Basis(cameraAxis_X,cameraAxis_Y,cameraAxis_Z)
-	pass
+
+#不借助Spatial节点的look_at_from_position（）方法自己实现
+func LookAtPosition(position,taregtPosition,worldUp=Vector3.UP):
+	transform.origin=position
+	LookAt(taregtPosition,worldUp)
