@@ -14,6 +14,11 @@ enum CheckType{SetMode,SetSubMode,SetLookAtTargetType,SetLookAtSpatial,SetLookAt
 
 var config ={}
 
+func _init():
+	SetMode(CameraMode.Protagonist)
+	SetSubMode(ProtagonistMode.Circle)
+
+
 func _process(delta):
 	if(not config.has("cameraMode") or not config.has("cameraSubMode")):
 		return false
@@ -70,19 +75,19 @@ func SetZenithAngelOffset(value:float):
 	if (not Check(value,CheckType.SetZenithAngelOffset)):
 		return
 	#TODO: 约束到01之间
-	config.zenithAngelOffset = value
+	config.zenithAngelOffset = value + 0.0001
 
 func SetAzimuthAngelOffse(value:float):
 	if (not Check(value,CheckType.SetAzimuthAngelOffse)):
 		return
 	#TODO: 约束到01之间
-	config.azimuthAngelOffset = value
+	config.azimuthAngelOffset = value + 0.0001
 
 func SetDistanceOffset(value:float):
 	if (not Check(value,CheckType.SetDistanceOffset)):
 		return
 	#TODO: 约束到01之间
-	config.distanceOffset = value
+	config.distanceOffset = value + 0.0001
 
 func SetDistanceMax(value:float):
 	if (not Check(value,CheckType.SetDistanceMax)):
@@ -258,7 +263,7 @@ func LookAtLerp(taregtPosition,worldUp=Vector3.UP):
 	
 	var cameraAxis_Y= cameraAxis_Z.cross(cameraAxis_X)
 	
-	var quat = Quat(transform.basis).slerp( Quat(Basis(cameraAxis_X,cameraAxis_Y,cameraAxis_Z)),config.lerpSpeed) 
+	var quat = Quat(transform.basis).slerp(Quat(Basis(cameraAxis_X,cameraAxis_Y,cameraAxis_Z)),config.lerpSpeed) 
 
 	transform.basis = Basis(quat)
 

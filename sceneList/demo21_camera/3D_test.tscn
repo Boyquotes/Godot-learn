@@ -692,7 +692,7 @@ margin_top = 13.0
 margin_right = 180.0
 margin_bottom = 27.0
 size_flags_vertical = 1
-text = "Zenith Angel Offset( 0~360 )"
+text = "Zenith Angel Offset( 0~180 )"
 
 [node name="Empty" type="Label" parent="GUI/Panel/VBoxContainer/HBoxZenithAngel"]
 margin_left = 184.0
