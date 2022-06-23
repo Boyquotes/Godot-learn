@@ -1,240 +1,318 @@
-#CameraController V0.1 2022.6.21
+#ProtagonistCamera V0.1 2022.6.21
 #Code By Xmy 
+tool
 extends Spatial
 
-enum CameraMode {Protagonist,FreeLook}
-enum ProtagonistMode{Circle, Sphere}
-enum FreeLookMode{OnPlane}
-
-enum ProjectionMode{Perspective , Orthogonal}
 enum LerpMethod{Defalut}
 enum LookAtTargetType{SpatialNode,Vector3Point}
 
 enum CheckType{SetMode,SetSubMode,SetLookAtTargetType,SetLookAtSpatial,SetLookAtPoint,SetZenithAngelOffset,SetAzimuthAngelOffse,SetDistanceOffset,SetDistanceMax,SetDistanceMin,SetLerpSpeed}
 
-var config ={}
+var isLerp = true
+var lerpSpeed = 0.5
+ 
+
+
+var distanceMin = 15
+var distanceMax = 40
+var distanceOffset = 0.0
+
+var zenithAngelOffset = 0.3 
+var azimuthAngelOffset = 0.0001
+
+var lookAtTargetType
+var lookAtSpatial
+var lookAtPoint = Vector3(0,0,0)
+
+var isAutoSurround = false
+var autoSurroundSpeed = 1
+
+func _set(prop_name: String, val) -> bool:
+	# Assume the property exists
+	var retval: bool = true
+	match prop_name: 
+		"Protagonist/type":
+			lookAtTargetType = val
+		"Protagonist/Spatial":
+			lookAtSpatial = val
+		"Protagonist/Point":
+			lookAtPoint = val
+		"Lerp/enable":
+			isLerp = val
+		"Lerp/speed":
+			lerpSpeed = val
+
+		"Angel/zenithOffset":
+			zenithAngelOffset = val
+		"Angel/azimuthOffset":
+			azimuthAngelOffset = val
+		"Distance/Max":
+			distanceMax = val
+		"Distance/Min":
+			distanceMin = val
+		"Distance/offset":
+			distanceOffset = val
+
+
+		"AutoSurround/enable":
+			isAutoSurround = val
+		"AutoSurround/speed":
+			autoSurroundSpeed = val
+		_:
+			retval = false
+	
+	if(retval):
+		property_list_changed_notify()
+	return retval
+
+
+func _get(prop_name: String):
+	var retval = null
+	match prop_name:
+		"Protagonist/type":
+			retval = lookAtTargetType 
+		"Protagonist/Spatial":
+			retval = lookAtSpatial
+		"Protagonist/Point":
+			retval = lookAtPoint
+		"Lerp/enable":
+			retval = isLerp
+		"Lerp/speed":
+			retval = lerpSpeed
+
+		"Angel/zenithOffset":
+			retval = zenithAngelOffset
+		"Angel/azimuthOffset":
+			retval = azimuthAngelOffset
+
+		"Distance/Max":
+			retval = distanceMax 
+		"Distance/Min":
+			retval = distanceMin
+		"Distance/offset":
+			retval = distanceOffset
+		"AutoSurround/enable":
+			retval = isAutoSurround
+		"AutoSurround/speed":
+			retval = autoSurroundSpeed
+	return retval
+
+func _get_property_list() -> Array:
+	var ret: Array = []
+
+	ret.append({
+	"hint": PROPERTY_HINT_ENUM,
+	"usage": PROPERTY_USAGE_DEFAULT,
+	"name": "Protagonist/type",
+	"type": TYPE_INT,
+	"hint_string": PoolStringArray(LookAtTargetType.keys()).join(",")
+	})
+
+	if(lookAtTargetType==LookAtTargetType.SpatialNode):
+		ret.append({
+			"name": "Protagonist/Spatial", 
+			"type": TYPE_NODE_PATH,
+		})
+	else:
+		ret.append({
+			"name": "Protagonist/Point", 
+			"type": TYPE_VECTOR3,
+		})
+
+	ret.append({
+		"name": "Lerp/enable", 
+		"type": TYPE_BOOL,
+	})
+	ret.append({
+		"name": "Lerp/speed",
+		"type": TYPE_REAL,
+		"hint": PROPERTY_HINT_EXP_RANGE,
+		"hint_string":"0.01 , 1 , 0.01"
+	})
+
+
+	ret.append({
+		"name": "Angel/zenithOffset",
+		"type": TYPE_REAL,
+		"hint": PROPERTY_HINT_EXP_RANGE,
+		"hint_string":"0.001 , 1"
+	})
+	ret.append({
+		"name": "Angel/azimuthOffset",
+		"type": TYPE_REAL,
+		"hint": PROPERTY_HINT_EXP_RANGE,
+		"hint_string":"0.001 , 1"
+	})
+
+
+	ret.append({
+		"name": "Distance/Max",
+		"type": TYPE_REAL,
+		"hint": PROPERTY_HINT_EXP_RANGE,
+		"hint_string":str(distanceMin)+", 1000 , 0.01"
+	})
+	ret.append({
+		"name": "Distance/Min",
+		"type": TYPE_REAL,
+		"hint": PROPERTY_HINT_EXP_RANGE,
+		"hint_string":"0 , "+str(distanceMax)+" , 0.01"
+	})
+	ret.append({
+		"name": "Distance/offset",
+		"type": TYPE_REAL,
+		"hint": PROPERTY_HINT_EXP_RANGE,
+		"hint_string":"0 , 1 , 0.001"
+	})
+
+	ret.append({
+		"name": "AutoSurround/enable", 
+		"type": TYPE_BOOL,
+	})
+	if(isAutoSurround):
+		ret.append({
+			"name": "AutoSurround/speed", 
+			"type": TYPE_REAL,
+			"hint": PROPERTY_HINT_EXP_RANGE,
+			"hint_string":"0.01 , 100 , 0.01"
+		})
+
+	return ret
 
 func _init():
-	SetMode(CameraMode.Protagonist)
-	SetSubMode(ProtagonistMode.Circle)
 
+	lookAtTargetType = LookAtTargetType.Vector3Point 
 
-func _process(delta):
-	if(not config.has("cameraMode") or not config.has("cameraSubMode")):
-		return false
+func _physics_process(delta): 
+
+	match lookAtTargetType:
+		LookAtTargetType.Vector3Point:
+			if lookAtPoint==null:
+				return
+		LookAtTargetType.SpatialNode:
+			if lookAtSpatial==null or lookAtSpatial=='':
+				return 
+
 	
-	match config.cameraMode:
-		CameraMode.Protagonist:
-			ProtagonistProcess(delta)
+	var distance = float((distanceMax-distanceMin)*distanceOffset)+distanceMin 
+	var zenithAngel = zenithAngelOffset*3.14 #(极角)
+	var azimuthAngel = azimuthAngelOffset*2*3.14 #(方位角)
 
-#region 外部方法
-func SetMode(mode):
-	if(not Check(mode,CheckType.SetMode)):
-		return
-	config.cameraMode = mode
+	var targetPosition
 
-	#Set default "Common Config" if it is null
-	if(not config.has("isLerp")):
-		config.isLerp=true
-		config.lerpSpeed=0.5
-	if(not config.has("projectionMode")):
-		config.projectionMode=ProjectionMode.Perspective
+	if(lookAtTargetType==LookAtTargetType.SpatialNode):
+		targetPosition=get_node(lookAtSpatial).transform.origin
+	else:
+		targetPosition=lookAtPoint
+	
+	var cameraPosition = Vector3(targetPosition.x+distance*sin(zenithAngel)*cos(azimuthAngel),
+	targetPosition.y+distance*cos(zenithAngel),targetPosition.z+distance*sin(zenithAngel)*sin(azimuthAngel))
 
-func SetSubMode(subMode):
-	if(not Check(subMode,CheckType.SetSubMode)):
-		return 
-	config.cameraSubMode=subMode
-	match subMode :
-			ProtagonistMode.Circle:
-				config.distanceMin = 15.0
-				config.distanceMax = 100.0
-				config.distanceOffset = 0.0
+	if(isLerp):
+		LookAtPositionLerp(cameraPosition,targetPosition)
+	else:
+		LookAtPosition(cameraPosition,targetPosition)
 
-				config.zenithAngelOffset = 0.0	
-				config.azimuthAngelOffset = 0.0	
 
-				config.isAutoSurround = false
-				config.autoSurroundSpeed = 30.0
-				config.lookAtTargetType = LookAtTargetType.Vector3Point
 
+#region Setter
 func SetLookAtTargetType(value:int):
-	config.lookAtTargetType=value
+	lookAtTargetType=value
 
 func SetLookAtSpatial(traget:Spatial):
 	if (not Check(traget,CheckType.SetLookAtSpatial)):
 		return
 
-	config.lookAtSpatial=traget
+	lookAtSpatial=traget
 
 func SetLookAtPoint(traget:Vector3):
 	if (not Check(traget,CheckType.SetLookAtPoint)):
 		return
-	config.lookAtPoint=traget
+	lookAtPoint=traget
 
 func SetZenithAngelOffset(value:float):
 	if (not Check(value,CheckType.SetZenithAngelOffset)):
 		return
 	#TODO: 约束到01之间
-	config.zenithAngelOffset = value + 0.0001
+	zenithAngelOffset = value + 0.0001
 
 func SetAzimuthAngelOffse(value:float):
 	if (not Check(value,CheckType.SetAzimuthAngelOffse)):
 		return
 	#TODO: 约束到01之间
-	config.azimuthAngelOffset = value + 0.0001
+	azimuthAngelOffset = value + 0.0001
 
 func SetDistanceOffset(value:float):
 	if (not Check(value,CheckType.SetDistanceOffset)):
 		return
 	#TODO: 约束到01之间
-	config.distanceOffset = value + 0.0001
+	distanceOffset = value + 0.0001
 
 func SetDistanceMax(value:float):
 	if (not Check(value,CheckType.SetDistanceMax)):
 		return
 
-	config.distanceMax = value
+	distanceMax = value
 
 func SetDistanceMin(value:float):
 	if (not Check(value,CheckType.SetDistanceMin)):
 		return
 
-	config.distanceMin = value
+	distanceMin = value
 
 func SetLerp(value:bool):
-	config.isLerp=value
+	isLerp=value
 
 func SetLerpSpeed(value:float):
 	if (not Check(value,CheckType.SetLerpSpeed)):
 		return
 
-	config.lerpSpeed=value
-#end 外部方法
+	lerpSpeed=value
+#end Setter
+
+#region Getter
+
+#end Getter
+
 
 #region 内部方法(不要在外部调用这些方法)
-func ProtagonistProcess(delta):
-	if not config.has("lookAtSpatial") and not config.has("lookAtPoint"):
-		return
-	
-	match config.cameraSubMode :
-		ProtagonistMode.Circle:
-			var distance = float((config.distanceMax-config.distanceMin)*config.distanceOffset)+config.distanceMin
-			var zenithAngel = config.zenithAngelOffset*3.14 #(极角)
-			var azimuthAngel = config.azimuthAngelOffset*2*3.14 #(方位角)
-
-			var targetPosition
-
-			if(config.lookAtTargetType==LookAtTargetType.SpatialNode):
-				targetPosition=config.lookAtSpatial.transform.origin
-			else:
-				targetPosition=config.lookAtPoint
-			
-			var cameraPosition = Vector3(targetPosition.x+distance*sin(zenithAngel)*cos(azimuthAngel),
-			targetPosition.y+distance*cos(zenithAngel),targetPosition.z+distance*sin(zenithAngel)*sin(azimuthAngel))
-
-
-			if(config.isLerp):
-				LookAtPositionLerp(cameraPosition,targetPosition)
-			else:
-				LookAtPosition(cameraPosition,targetPosition)
-
 func Check(input,checkType)->bool:
 	if(input == null):
 		print("CameraControllerError: set parameter can not be null")
 		return false
+
 	match checkType:
-
-		CheckType.SetMode:
-			#if new mode == current mode , just return
-			if(config.has("cameraMode") and config.cameraMode == input):
-				print("CameraControllerWarn: new mode == current mode, nothing changed!")
-				return false
-
-		CheckType.SetSubMode:
-			#if new subMode == current subMode , just return
-			if(config.has("cameraSubMode") and config.cameraSubMode == input):
-				print("CameraControllerWarn: new subMode == current subMode, nothing changed!")
-				return false
-
-		CheckType.SetLookAtTargetType:
-			if(not config.has("cameraMode")):
-				print("CameraControllerError: you have to set mode Protagonist first")
-				return false
-			elif(config.cameraMode !=CameraMode.Protagonist):
-				print("CameraControllerError: function SetLookAtTargetType() can be called only under mode Protagonist")
-				return false
-
 		CheckType.SetLookAtSpatial:
-			if(not config.has("cameraMode")):
-				print("CameraControllerError: you have to set mode Protagonist first")
-				return false
-			elif(config.cameraMode !=CameraMode.Protagonist):
-				print("CameraControllerError: function SetLookAtSpatial() can be called only under mode Protagonist")
-				return false
-			elif(config.lookAtTargetType==LookAtTargetType.Vector3Point):
+			if(lookAtTargetType==LookAtTargetType.Vector3Point):
 				print("CameraControllerError: function SetLookAtSpatial() can be called only under LookAtTargetType=SpatialNode")
 				return false
 
 		CheckType.SetLookAtPoint:
-				if(not config.has("cameraMode")):
-					print("CameraControllerError: you have to set mode Protagonist first")
-					return false
-				elif(config.cameraMode !=CameraMode.Protagonist):
-					print("CameraControllerError: function SetLookAtPoint() can be called only under mode Protagonist")
-					return false
-				elif(config.lookAtTargetType==LookAtTargetType.SpatialNode):
-					print("CameraControllerError: function SetLookAtSpatial() can be called only under LookAtTargetType=Vector3Point")
-					return false
+			if(lookAtTargetType==LookAtTargetType.SpatialNode):
+				print("CameraControllerError: function SetLookAtSpatial() can be called only under LookAtTargetType=Vector3Point")
+				return false
 
 		CheckType.SetZenithAngelOffset:
-			if(not config.has("cameraMode")):
-				print("CameraControllerError: you have to set mode Protagonist first")
-				return false
-			elif(config.cameraMode !=CameraMode.Protagonist):
-				print("CameraControllerError: function SetZenithAngelOffset() can be called only under mode Protagonist")
-				return false
+			pass
 
 		CheckType.SetAzimuthAngelOffse:
-			if(not config.has("cameraMode")):
-				print("CameraControllerError: you have to set mode Protagonist first")
-				return false
-			elif(config.cameraMode !=CameraMode.Protagonist):
-				print("CameraControllerError: function SetAzimuthAngelOffse() can be called only under mode Protagonist")
-				return false
+			pass
 
 		CheckType.SetDistanceOffset:
-			if(not config.has("cameraMode")):
-				print("CameraControllerError: you have to set mode Protagonist first")
-				return false
-			elif(config.cameraMode !=CameraMode.Protagonist):
-				print("CameraControllerError: function SetSurroundAngelOffset() can be called only under mode Protagonist")
-				return false
+			pass
 
 		CheckType.SetDistanceMax:
-			if(not config.has("cameraMode")):
-				print("CameraControllerError: you have to set mode Protagonist first")
-				return false
-			elif(config.cameraMode !=CameraMode.Protagonist):
-				print("CameraControllerError: function SetSurroundAngelOffset() can be called only under mode Protagonist")
-				return false
-			elif(input<0):
+			if(input<0):
 				print("CameraControllerError: function SetDistanceMax(value) can be called when value >=0")
 				return false
-			elif(input<config.distanceMin):
+			elif(input<distanceMin):
 				print("CameraControllerError: fun50ction SetDistanceMax(value) can be called when DistanceMax >=DistanceMin")
 				return false
 
 		CheckType.SetDistanceMin:
-			if(not config.has("cameraMode")):
-				print("CameraControllerError: you have to set mode Protagonist first")
-				return false
-			elif(config.cameraMode !=CameraMode.Protagonist):
-				print("CameraControllerError: function SetSurroundAngelOffset() can be called only under mode Protagonist")
-				return false
-			elif(input<0):
+			if(input<0):
 				print("CameraControllerError: function SetDistanceMin(value) can be called when value >=0")
 				return false
-			elif(input>config.distanceMax):
+			elif(input>distanceMax):
 				print("CameraControllerError: function SetDistanceMin(value) can be called when DistanceMax >=DistanceMin")
 				return false
 
@@ -242,8 +320,6 @@ func Check(input,checkType)->bool:
 			if(input<=0 or input>1):
 				print("CameraControllerError: function SetLerpSpeed(value) can be called when 1	>=value >0")
 				return false
-
-
 	return true
 
 #不借助Spatial节点的look_at（）方法自己实现
@@ -263,7 +339,7 @@ func LookAtLerp(taregtPosition,worldUp=Vector3.UP):
 	
 	var cameraAxis_Y= cameraAxis_Z.cross(cameraAxis_X)
 	
-	var quat = Quat(transform.basis).slerp(Quat(Basis(cameraAxis_X,cameraAxis_Y,cameraAxis_Z)),config.lerpSpeed) 
+	var quat = Quat(transform.basis).slerp(Quat(Basis(cameraAxis_X,cameraAxis_Y,cameraAxis_Z)),lerpSpeed) 
 
 	transform.basis = Basis(quat)
 
@@ -273,6 +349,6 @@ func LookAtPosition(position,taregtPosition,worldUp=Vector3.UP):
 	LookAt(taregtPosition,worldUp)
 
 func LookAtPositionLerp(position,taregtPosition,worldUp=Vector3.UP):
-	transform.origin= lerp(transform.origin,position,config.lerpSpeed)  
+	transform.origin= lerp(transform.origin,position,lerpSpeed)  
 	LookAtLerp(taregtPosition,worldUp)
 #end 内部方法

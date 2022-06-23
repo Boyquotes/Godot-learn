@@ -4,8 +4,7 @@ var objects=[]
 
 var CameraControlScript=load("res://sceneList/demo21_camera/Scripts/CameraControl.gd")
 
-var cameraModeOption
-var cameraSubModeOption
+
 var projectionOption
 
 var lookAtTargetTypeOption
@@ -27,7 +26,6 @@ var azimuthAngelOffset
 
 var cameraNode
 
-
 onready var HBoxLookAtSpatial = find_node("HBoxLookAtSpatial")
 onready var HBoxLookAtPoint = find_node("HBoxLookAtPoint")
 onready var HBoxFollow = find_node("HBoxFollow")
@@ -43,9 +41,9 @@ func _ready():
 	#Setp 1: 找到Camera节点
 	cameraNode = find_node("Camera")
 	#Setp 2: 给Camera节点绑定脚本
-	cameraNode.set_script(CameraControlScript)
-	cameraNode.set_process(true)
-	cameraNode.set_physics_process(true)
+#	cameraNode.set_script(CameraControlScript)
+#	cameraNode.set_physics_process(true)
+
 	#Setp 3: 初始化UI界面中的按钮
 	InitButton()
 
@@ -56,8 +54,6 @@ func InitButton():
 			objects.append(child)
 			
 	#Setp 2:绑定UI
-	cameraModeOption = find_node("HBoxCameraMode").get_node("OptionButton")
-	cameraSubModeOption = find_node("HBoxCameraSubMode").get_node("OptionButton")
 	lookAtSpatialOption = find_node("HBoxLookAtSpatial").get_node("OptionButton")
 	lookAtTargetTypeOption = find_node("HBoxLookAtTargetType").get_node("OptionButton")
 	lookAtPointX =  find_node("HBoxLookAtPoint").get_node("x/TextEdit")
@@ -65,7 +61,7 @@ func InitButton():
 	lookAtPointZ =  find_node("HBoxLookAtPoint").get_node("z/TextEdit")
 
 
-	projectionOption = find_node("HBoxCameraProjection").get_node("OptionButton")
+	
 	lerpOption = find_node("HBoxCameraLerpMethod").get_node("OptionButton")
 
 	lerpSpeed = find_node("HBoxChangeLerp").get_node("Speed/TextEdit")
@@ -79,16 +75,12 @@ func InitButton():
 	azimuthAngelOffset = find_node("HBoxAzimuthAngel").get_node("CenterContainer2/HScrollBar")
 	
 	#Setp 3:绑定更新事件
-	cameraModeOption.connect("item_selected",self,"UpdateUILevel0")
-	cameraSubModeOption.connect("item_selected",self,"UpdateUILevel1")
-
 	lookAtSpatialOption.connect("item_selected",self,"UpdateLookAtSpatial")
 	lookAtTargetTypeOption.connect("item_selected",self,"UpdateLookAtTargetType")
 	lookAtPointX.connect("text_changed",self,"UpdateLookAtPoint")
 	lookAtPointY.connect("text_changed",self,"UpdateLookAtPoint")
 	lookAtPointZ.connect("text_changed",self,"UpdateLookAtPoint")
 
-	projectionOption.connect("item_selected",self,"SetCameraController")
 
 	lerpSpeed.connect("text_changed",self,"UpdateLerpSpeed")
 	lerpSwitch.connect("pressed",self,"UpdateLerpSwitch")
@@ -105,70 +97,27 @@ func InitButton():
 	for object in objects:
 		lookAtSpatialOption.add_item("item : "+object.name)
 
-	for item in CameraControlScript.ProjectionMode:
-		projectionOption.add_item(item)
-		
-	for item in CameraControlScript.CameraMode:
-		cameraModeOption.add_item(item)
+
+	
 	
 	for item in CameraControlScript.LerpMethod:
 		lerpOption.add_item(item)
 
 	for item in CameraControlScript.LookAtTargetType:
 		lookAtTargetTypeOption.add_item(item)
-
-	UpdateUILevel0(null)
 	
-func UpdateUILevel0(input):  # mode change
-	match cameraModeOption.get_selected_id():
-		CameraControlScript.CameraMode.Protagonist:
-			cameraSubModeOption.clear()
-			for item in CameraControlScript.ProtagonistMode:
-					cameraSubModeOption.add_item(item)
-
-		CameraControlScript.CameraMode.FreeLook:
-			cameraSubModeOption.clear()
-			for item in CameraControlScript.FreeLookMode:
-					cameraSubModeOption.add_item(item)
-
-	#每次UI更新，都要更新相机脚本的参数
-	cameraNode.SetMode(cameraModeOption.get_selected_id())	
-	UpdateUILevel1(null)
-
-
-func UpdateUILevel1(input):  # sub mode change
-
-	cameraNode.SetSubMode(cameraSubModeOption.get_selected_id())
-
-	match cameraModeOption.get_selected_id():
-		CameraControlScript.CameraMode.Protagonist:
-			UpdateUIProtagonist(null)
-
-		CameraControlScript.CameraMode.FreeLook:
-			UpdateUIFreeLook(null)
-
+	UpdateUIProtagonist(null)
 	
 func UpdateUIProtagonist(input):
 	UpdateLookAtTargetType(null)
-
-	HBoxAzimuthAngel.show()
-	HBoxZenithAngel.show()
-	HBoxAutoRotate.show()
-
 	UpdateLookAtSpatial(null)
-	match cameraSubModeOption.get_selected_id():
-		CameraControlScript.ProtagonistMode.Circle:
-			HBoxDistance.show()
-			HBoxDistanceScroll.show()
-			UpdateZenithAngelOffset(null)
-			UpdateAzimuthAngelOffse(null)
-			UpdateDistanceOffset(null)
-			UpdateDistanceMin()
-			UpdateDistanceMax()
-			UpdateLerpSpeed()
-		CameraControlScript.ProtagonistMode.Sphere:
-			HBoxDistance.hide()
-			HBoxDistanceScroll.hide()
+	UpdateZenithAngelOffset(null)
+	UpdateAzimuthAngelOffse(null)
+	UpdateDistanceOffset(null)
+	UpdateDistanceMin()
+	UpdateDistanceMax()
+	UpdateLerpSpeed()
+
 
 func UpdateUIFreeLook(input):
 	HBoxLookAtSpatial.hide()
@@ -212,6 +161,8 @@ func UpdateLookAtTargetType(input):
 			HBoxLookAtPoint.hide()
 			HBoxLookAtSpatial.show()
 			cameraNode.SetLookAtTargetType(CameraControlScript.LookAtTargetType.SpatialNode)
+			UpdateLookAtSpatial(null)
+			
 		CameraControlScript.LookAtTargetType.Vector3Point:
 			HBoxLookAtPoint.show()
 			HBoxLookAtSpatial.hide()
