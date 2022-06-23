@@ -2,7 +2,7 @@
 
 [ext_resource path="res://sceneList/demo21_camera/Scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://font/SourceHanSansCN-Bold.otf" type="DynamicFontData" id=2]
-[ext_resource path="res://sceneList/demo21_camera/Scripts/CameraControl.gd" type="Script" id=3]
+[ext_resource path="res://sceneList/demo21_camera/Scripts/ProtagonistCamera.gd" type="Script" id=3]
 
 [sub_resource type="BoxShape" id=4]
 extents = Vector3( 15, 0.5, 15 )
@@ -43,7 +43,7 @@ skeleton = NodePath("../..")
 material/0 = null
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.987825, 0.125887, -0.0914012, 0, 0.587528, 0.809204, 0.155569, -0.799352, 0.580374, -2.51463, 22.2628, 15.9673 )
+transform = Transform( 0.987825, 0.155568, 6.80011e-09, 0, -4.37114e-08, 1, 0.155568, -0.987825, -4.31792e-08, -0.0149562, 30.6173, 0.0949683 )
 doppler_tracking = 1
 size = 0.1
 script = ExtResource( 3 )
@@ -51,9 +51,9 @@ Protagonist/type = 1
 Protagonist/Point = Vector3( 0, 0, 0 )
 Lerp/enable = true
 Lerp/speed = 0.5
-Angel/zenithOffset = 0.2
+Angel/zenithOffset = 0.001
 Angel/azimuthOffset = 0.275
-Distance/Max = 40.024
+Distance/Max = 46.235
 Distance/Min = 15.0
 Distance/offset = 0.5
 AutoSurround/enable = false

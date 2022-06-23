@@ -2,7 +2,7 @@ extends Node
 
 var objects=[]
 
-var CameraControlScript=load("res://sceneList/demo21_camera/Scripts/CameraControl.gd")
+var CameraControlScript=load("res://sceneList/demo21_camera/Scripts/ProtagonistCamera.gd")
 
 
 var projectionOption
