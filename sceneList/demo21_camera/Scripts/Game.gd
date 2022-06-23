@@ -60,8 +60,6 @@ func InitButton():
 	lookAtPointY =  find_node("HBoxLookAtPoint").get_node("y/TextEdit")
 	lookAtPointZ =  find_node("HBoxLookAtPoint").get_node("z/TextEdit")
 
-
-	
 	lerpOption = find_node("HBoxCameraLerpMethod").get_node("OptionButton")
 
 	lerpSpeed = find_node("HBoxChangeLerp").get_node("Speed/TextEdit")
@@ -81,7 +79,6 @@ func InitButton():
 	lookAtPointY.connect("text_changed",self,"UpdateLookAtPoint")
 	lookAtPointZ.connect("text_changed",self,"UpdateLookAtPoint")
 
-
 	lerpSpeed.connect("text_changed",self,"UpdateLerpSpeed")
 	lerpSwitch.connect("pressed",self,"UpdateLerpSwitch")
 
@@ -97,18 +94,15 @@ func InitButton():
 	for object in objects:
 		lookAtSpatialOption.add_item("item : "+object.name)
 
-
-	
-	
 	for item in CameraControlScript.LerpMethod:
 		lerpOption.add_item(item)
 
 	for item in CameraControlScript.LookAtTargetType:
 		lookAtTargetTypeOption.add_item(item)
 	
-	UpdateUIProtagonist(null)
+	UpdateProtagonist(null)
 	
-func UpdateUIProtagonist(input):
+func UpdateProtagonist(input):
 	UpdateLookAtTargetType(null)
 	UpdateLookAtSpatial(null)
 	UpdateZenithAngelOffset(null)
@@ -118,31 +112,26 @@ func UpdateUIProtagonist(input):
 	UpdateDistanceMax()
 	UpdateLerpSpeed()
 
-
-func UpdateUIFreeLook(input):
-	HBoxLookAtSpatial.hide()
-
 func UpdateLookAtSpatial(input):
-	cameraNode.SetLookAtSpatial(objects[lookAtSpatialOption.get_selected_id()])
+	cameraNode.lookAtSpatial=objects[lookAtSpatialOption.get_selected_id()].get_path()
 
 func UpdateLookAtPoint():
-	var point=Vector3(float(lookAtPointX.text),float(lookAtPointY.text),float(lookAtPointZ.text))
-	cameraNode.SetLookAtPoint(point)
+	cameraNode.lookAtPoint=Vector3(float(lookAtPointX.text),float(lookAtPointY.text),float(lookAtPointZ.text))
 
 func UpdateZenithAngelOffset(input):
-	cameraNode.SetZenithAngelOffset(zenithAngelOffset.value)
+	cameraNode.zenithAngelOffset = zenithAngelOffset.value
 
 func UpdateAzimuthAngelOffse(input):
-	cameraNode.SetAzimuthAngelOffse(azimuthAngelOffset.value)
+	cameraNode.azimuthAngelOffset = azimuthAngelOffset.value
 
 func UpdateDistanceOffset(input):
-	cameraNode.SetDistanceOffset(distanceOffset.value)
+	cameraNode.distanceOffset = distanceOffset.value
 
 func UpdateDistanceMin():
-	cameraNode.SetDistanceMin(float(distanceMin.text))
+	cameraNode.distanceMin=float(distanceMin.text)
 
 func UpdateDistanceMax():
-	cameraNode.SetDistanceMax(float(distanceMax.text))
+	cameraNode.distanceMax=float(distanceMax.text)
 
 func UpdateLerpSwitch():
 	var toggleState = lerpSwitch.is_pressed()
@@ -150,21 +139,21 @@ func UpdateLerpSwitch():
 		HBoxCameraLerpMethod.show()
 	else:
 		HBoxCameraLerpMethod.hide()
-	cameraNode.SetLerp(toggleState)
+	cameraNode.isLerp=toggleState
 
 func UpdateLerpSpeed():
-	cameraNode.SetLerpSpeed(float(lerpSpeed.text))
+	cameraNode.lerpSpeed=float(lerpSpeed.text)
 
 func UpdateLookAtTargetType(input):
 	match lookAtTargetTypeOption.get_selected_id():
 		CameraControlScript.LookAtTargetType.SpatialNode:
 			HBoxLookAtPoint.hide()
 			HBoxLookAtSpatial.show()
-			cameraNode.SetLookAtTargetType(CameraControlScript.LookAtTargetType.SpatialNode)
+			cameraNode.lookAtTargetType=(CameraControlScript.LookAtTargetType.SpatialNode)
 			UpdateLookAtSpatial(null)
 			
 		CameraControlScript.LookAtTargetType.Vector3Point:
 			HBoxLookAtPoint.show()
 			HBoxLookAtSpatial.hide()
-			cameraNode.SetLookAtTargetType(CameraControlScript.LookAtTargetType.Vector3Point)
+			cameraNode.lookAtTargetType=(CameraControlScript.LookAtTargetType.Vector3Point)
 			UpdateLookAtPoint()

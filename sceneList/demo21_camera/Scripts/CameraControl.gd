@@ -8,25 +8,27 @@ enum LookAtTargetType{SpatialNode,Vector3Point}
 
 enum CheckType{SetMode,SetSubMode,SetLookAtTargetType,SetLookAtSpatial,SetLookAtPoint,SetZenithAngelOffset,SetAzimuthAngelOffse,SetDistanceOffset,SetDistanceMax,SetDistanceMin,SetLerpSpeed}
 
-var isLerp = true
-var lerpSpeed = 0.5
+#regin config Variable
+var isLerp:bool = true setget SetLerp,GetLerp
+var lerpSpeed:float = 0.5 setget SetLerpSpeed,GetLerpSpeed
  
+var distanceMin:float = 15 setget SetDistanceMin,GetDistanceMin
+var distanceMax:float = 40 setget SetDistanceMax,GetDistanceMax
+var distanceOffset:float = 0.0 setget SetDistanceOffset,GetDistanceOffset
 
+var zenithAngelOffset:float = 0.3 setget SetZenithAngelOffset,GetZenithAngelOffset
+var azimuthAngelOffset:float = 0.0001 setget SetAzimuthAngelOffse,GetAzimuthAngelOffse
 
-var distanceMin = 15
-var distanceMax = 40
-var distanceOffset = 0.0
+var lookAtTargetType setget SetLookAtTargetType,GetLookAtTargetType
+var lookAtSpatial:NodePath setget SetLookAtSpatial,GetLookAtSpatial
+var lookAtPoint:Vector3 = Vector3(0,0,0) setget SetLookAtPoint,GetLookAtPoint
 
-var zenithAngelOffset = 0.3 
-var azimuthAngelOffset = 0.0001
+var isAutoSurround:bool = false
+var autoSurroundSpeed:float = 1 
 
-var lookAtTargetType
-var lookAtSpatial
-var lookAtPoint = Vector3(0,0,0)
+#end Config Variable
 
-var isAutoSurround = false
-var autoSurroundSpeed = 1
-
+#region Editor script
 func _set(prop_name: String, val) -> bool:
 	# Assume the property exists
 	var retval: bool = true
@@ -60,11 +62,10 @@ func _set(prop_name: String, val) -> bool:
 			autoSurroundSpeed = val
 		_:
 			retval = false
-	
+	 
 	if(retval):
 		property_list_changed_notify()
 	return retval
-
 
 func _get(prop_name: String):
 	var retval = null
@@ -177,10 +178,11 @@ func _get_property_list() -> Array:
 		})
 
 	return ret
+#end Editor script
 
+#region Godot callback
 func _init():
-
-	lookAtTargetType = LookAtTargetType.Vector3Point 
+	pass
 
 func _physics_process(delta): 
 
@@ -211,14 +213,13 @@ func _physics_process(delta):
 		LookAtPositionLerp(cameraPosition,targetPosition)
 	else:
 		LookAtPosition(cameraPosition,targetPosition)
-
-
+#end Godot callback
 
 #region Setter
 func SetLookAtTargetType(value:int):
 	lookAtTargetType=value
 
-func SetLookAtSpatial(traget:Spatial):
+func SetLookAtSpatial(traget:NodePath):
 	if (not Check(traget,CheckType.SetLookAtSpatial)):
 		return
 
@@ -245,7 +246,7 @@ func SetDistanceOffset(value:float):
 	if (not Check(value,CheckType.SetDistanceOffset)):
 		return
 	#TODO: 约束到01之间
-	distanceOffset = value + 0.0001
+	distanceOffset = value
 
 func SetDistanceMax(value:float):
 	if (not Check(value,CheckType.SetDistanceMax)):
@@ -270,11 +271,30 @@ func SetLerpSpeed(value:float):
 #end Setter
 
 #region Getter
-
+func GetLookAtTargetType():
+	return lookAtTargetType
+func GetLookAtSpatial():
+	return lookAtSpatial
+func GetLookAtPoint():
+	return lookAtPoint
+func GetZenithAngelOffset():
+	return zenithAngelOffset
+func GetAzimuthAngelOffse():
+	return azimuthAngelOffset
+func GetDistanceOffset():
+	return distanceOffset
+func GetDistanceMax():
+	return distanceMax
+func GetDistanceMin():
+	return distanceMin
+func GetLerp():
+	return isLerp
+func GetLerpSpeed():
+	return lerpSpeed
 #end Getter
 
 
-#region 内部方法(不要在外部调用这些方法)
+#region Internal Method(Do not call outsise this class!!)
 func Check(input,checkType)->bool:
 	if(input == null):
 		print("CameraControllerError: set parameter can not be null")
@@ -324,13 +344,14 @@ func Check(input,checkType)->bool:
 
 #不借助Spatial节点的look_at（）方法自己实现
 func LookAt(taregtPosition,worldUp=Vector3.UP):
-	var cameraAxis_Z =(transform.origin-taregtPosition).normalized()
+	look_at(taregtPosition,worldUp)
+	# var cameraAxis_Z =(transform.origin-taregtPosition).normalized()
 
-	var cameraAxis_X= worldUp.cross(cameraAxis_Z).normalized()
+	# var cameraAxis_X= worldUp.cross(cameraAxis_Z).normalized()
 	
-	var cameraAxis_Y= cameraAxis_Z.cross(cameraAxis_X)
+	# var cameraAxis_Y= cameraAxis_Z.cross(cameraAxis_X)
 	
-	transform.basis=Basis(cameraAxis_X,cameraAxis_Y,cameraAxis_Z)
+	# transform.basis=Basis(cameraAxis_X,cameraAxis_Y,cameraAxis_Z)
 
 func LookAtLerp(taregtPosition,worldUp=Vector3.UP):
 	var cameraAxis_Z =(transform.origin-taregtPosition).normalized()
@@ -343,12 +364,13 @@ func LookAtLerp(taregtPosition,worldUp=Vector3.UP):
 
 	transform.basis = Basis(quat)
 
-#不借助Spatial节点的look_at_from_position（）方法自己实现
+
 func LookAtPosition(position,taregtPosition,worldUp=Vector3.UP):
-	transform.origin=position
-	LookAt(taregtPosition,worldUp)
+	look_at_from_position(position,taregtPosition,worldUp)
+	# transform.origin=position
+	# LookAt(taregtPosition,worldUp)
 
 func LookAtPositionLerp(position,taregtPosition,worldUp=Vector3.UP):
 	transform.origin= lerp(transform.origin,position,lerpSpeed)  
 	LookAtLerp(taregtPosition,worldUp)
-#end 内部方法
+#end Internal Method

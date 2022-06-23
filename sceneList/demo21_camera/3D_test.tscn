@@ -43,19 +43,19 @@ skeleton = NodePath("../..")
 material/0 = null
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.00159252, 0.588171, -0.808735, 2.98023e-08, 0.808736, 0.588172, 0.999999, -0.000936687, 0.00128794, -3.83558, 10.4454, 9.88828 )
+transform = Transform( 0.987825, 0.125887, -0.0914012, 0, 0.587528, 0.809204, 0.155569, -0.799352, 0.580374, -2.51463, 22.2628, 15.9673 )
 doppler_tracking = 1
 size = 0.1
 script = ExtResource( 3 )
-Protagonist/type = 0
-Protagonist/Spatial = NodePath("")
+Protagonist/type = 1
+Protagonist/Point = Vector3( 0, 0, 0 )
 Lerp/enable = true
 Lerp/speed = 0.5
-Angel/zenithOffset = 0.3
-Angel/azimuthOffset = 0.5
-Distance/Max = 40
-Distance/Min = 15
-Distance/offset = 0.0
+Angel/zenithOffset = 0.2
+Angel/azimuthOffset = 0.275
+Distance/Max = 40.024
+Distance/Min = 15.0
+Distance/offset = 0.5
 AutoSurround/enable = false
 
 [node name="Cube" type="KinematicBody" parent="."]
