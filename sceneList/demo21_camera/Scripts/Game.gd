@@ -24,6 +24,9 @@ var distanceOffset
 var zenithAngelOffset
 var azimuthAngelOffset
 
+var zenithAngelOffsetIncrement
+var azimuthAngelOffsetIncrement
+
 var cameraNode
 
 onready var HBoxLookAtSpatial = find_node("HBoxLookAtSpatial")
@@ -72,6 +75,9 @@ func InitButton():
 	zenithAngelOffset = find_node("HBoxZenithAngel").get_node("CenterContainer2/HScrollBar")
 	azimuthAngelOffset = find_node("HBoxAzimuthAngel").get_node("CenterContainer2/HScrollBar")
 	
+	zenithAngelOffsetIncrement = find_node("HBoxZenithAngelIncrement").get_node("CenterContainer2/HScrollBar")
+	azimuthAngelOffsetIncrement = find_node("HBoxAzimuthAngelIncrement").get_node("CenterContainer2/HScrollBar")
+
 	#Setp 3:绑定更新事件
 	lookAtSpatialOption.connect("item_selected",self,"UpdateLookAtSpatial")
 	lookAtTargetTypeOption.connect("item_selected",self,"UpdateLookAtTargetType")
@@ -85,6 +91,9 @@ func InitButton():
 	zenithAngelOffset.connect("value_changed",self,"UpdateZenithAngelOffset")
 	azimuthAngelOffset.connect("value_changed",self,"UpdateAzimuthAngelOffse")
 	
+	zenithAngelOffsetIncrement.connect("value_changed",self,"UpdateZenithAngelOffsetIncrement")
+	azimuthAngelOffsetIncrement.connect("value_changed",self,"UpdateAzimuthAngelOffsetIncrement")
+
 	distanceOffset.connect("value_changed",self,"UpdateDistanceOffset")
 	
 	distanceMin.connect("text_changed",self,"UpdateDistanceMin")
@@ -157,3 +166,10 @@ func UpdateLookAtTargetType(input):
 			HBoxLookAtSpatial.hide()
 			cameraNode.lookAtTargetType=(CameraControlScript.LookAtTargetType.Vector3Point)
 			UpdateLookAtPoint()
+
+
+func UpdateZenithAngelOffsetIncrement(input):
+	cameraNode.SetZenithAngelOffsetIncrement(zenithAngelOffsetIncrement.value)
+
+func UpdateAzimuthAngelOffsetIncrement(input):
+	cameraNode.SetAzimuthAngelOffsetIncrement(azimuthAngelOffsetIncrement.value)

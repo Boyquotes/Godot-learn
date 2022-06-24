@@ -43,7 +43,7 @@ skeleton = NodePath("../..")
 material/0 = null
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.987825, 0.155568, 6.80011e-09, 0, -4.37114e-08, 1, 0.155568, -0.987825, -4.31792e-08, -0.0149562, 30.6173, 0.0949683 )
+transform = Transform( 0.987823, 0.155568, 6.80011e-09, 0, -4.37113e-08, 1, 0.155568, -0.987823, -4.31792e-08, -0.0149562, 30.6173, 0.0949683 )
 doppler_tracking = 1
 size = 0.1
 script = ExtResource( 3 )
@@ -104,7 +104,7 @@ margin_right = -20.0
 margin_bottom = -20.0
 
 [node name="---Common---" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
-margin_right = 460.0
+margin_right = 464.0
 margin_bottom = 17.0
 
 [node name="Label" type="Label" parent="GUI/Panel/VBoxContainer/---Common---"]
@@ -116,7 +116,7 @@ text = "Common"
 
 [node name="HBoxChangeLerp" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
 margin_top = 21.0
-margin_right = 460.0
+margin_right = 464.0
 margin_bottom = 61.0
 
 [node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxChangeLerp"]
@@ -141,7 +141,7 @@ rect_min_size = Vector2( 10, 0 )
 
 [node name="Speed" type="HBoxContainer" parent="GUI/Panel/VBoxContainer/HBoxChangeLerp"]
 margin_left = 178.0
-margin_right = 317.0
+margin_right = 319.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 
@@ -163,8 +163,8 @@ rect_min_size = Vector2( 60, 0 )
 text = "0.5"
 
 [node name="Swicth" type="HBoxContainer" parent="GUI/Panel/VBoxContainer/HBoxChangeLerp"]
-margin_left = 321.0
-margin_right = 460.0
+margin_left = 323.0
+margin_right = 464.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 
@@ -190,7 +190,7 @@ pressed = true
 
 [node name="HBoxCameraLerpMethod" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
 margin_top = 65.0
-margin_right = 460.0
+margin_right = 464.0
 margin_bottom = 105.0
 
 [node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxCameraLerpMethod"]
@@ -215,14 +215,14 @@ rect_min_size = Vector2( 10, 0 )
 
 [node name="OptionButton" type="OptionButton" parent="GUI/Panel/VBoxContainer/HBoxCameraLerpMethod"]
 margin_left = 178.0
-margin_right = 460.0
+margin_right = 464.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 240, 40 )
 size_flags_horizontal = 3
 
 [node name="HBoxDistance" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
 margin_top = 109.0
-margin_right = 460.0
+margin_right = 464.0
 margin_bottom = 149.0
 
 [node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxDistance"]
@@ -247,7 +247,7 @@ rect_min_size = Vector2( 10, 0 )
 
 [node name="Min" type="HBoxContainer" parent="GUI/Panel/VBoxContainer/HBoxDistance"]
 margin_left = 178.0
-margin_right = 317.0
+margin_right = 319.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 
@@ -276,8 +276,8 @@ rect_min_size = Vector2( 60, 0 )
 text = "15"
 
 [node name="Max" type="HBoxContainer" parent="GUI/Panel/VBoxContainer/HBoxDistance"]
-margin_left = 321.0
-margin_right = 460.0
+margin_left = 323.0
+margin_right = 464.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 
@@ -307,7 +307,7 @@ text = "50"
 
 [node name="HBoxDistanceScroll" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
 margin_top = 153.0
-margin_right = 460.0
+margin_right = 464.0
 margin_bottom = 193.0
 
 [node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxDistanceScroll"]
@@ -332,21 +332,21 @@ rect_min_size = Vector2( 10, 0 )
 
 [node name="CenterContainer2" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxDistanceScroll"]
 margin_left = 178.0
-margin_right = 460.0
+margin_right = 464.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 
 [node name="HScrollBar" type="HScrollBar" parent="GUI/Panel/VBoxContainer/HBoxDistanceScroll/CenterContainer2"]
-margin_left = 21.0
+margin_left = 23.0
 margin_top = 14.0
-margin_right = 261.0
+margin_right = 263.0
 margin_bottom = 26.0
 rect_min_size = Vector2( 240, 12 )
 max_value = 1.0
 
 [node name="HBoxZenithAngel" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
 margin_top = 197.0
-margin_right = 460.0
+margin_right = 464.0
 margin_bottom = 237.0
 
 [node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxZenithAngel"]
@@ -370,22 +370,61 @@ rect_min_size = Vector2( 10, 0 )
 
 [node name="CenterContainer2" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxZenithAngel"]
 margin_left = 198.0
-margin_right = 460.0
+margin_right = 464.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 
 [node name="HScrollBar" type="HScrollBar" parent="GUI/Panel/VBoxContainer/HBoxZenithAngel/CenterContainer2"]
-margin_left = 11.0
+margin_left = 13.0
 margin_top = 14.0
-margin_right = 251.0
+margin_right = 253.0
 margin_bottom = 26.0
 rect_min_size = Vector2( 240, 12 )
 max_value = 1.0
 
-[node name="HBoxAzimuthAngel" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
+[node name="HBoxZenithAngelIncrement" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
 margin_top = 241.0
-margin_right = 460.0
+margin_right = 464.0
 margin_bottom = 281.0
+
+[node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxZenithAngelIncrement"]
+margin_right = 195.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 160, 40 )
+
+[node name="Label" type="Label" parent="GUI/Panel/VBoxContainer/HBoxZenithAngelIncrement/CenterContainer"]
+margin_top = 13.0
+margin_right = 195.0
+margin_bottom = 27.0
+size_flags_vertical = 1
+text = "Zenith Angel Offset Increment"
+
+[node name="Empty" type="Label" parent="GUI/Panel/VBoxContainer/HBoxZenithAngelIncrement"]
+margin_left = 199.0
+margin_top = 13.0
+margin_right = 209.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 10, 0 )
+
+[node name="CenterContainer2" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxZenithAngelIncrement"]
+margin_left = 213.0
+margin_right = 464.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="HScrollBar" type="HScrollBar" parent="GUI/Panel/VBoxContainer/HBoxZenithAngelIncrement/CenterContainer2"]
+margin_left = 5.0
+margin_top = 14.0
+margin_right = 245.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 240, 12 )
+min_value = -1.0
+max_value = 1.0
+
+[node name="HBoxAzimuthAngel" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
+margin_top = 285.0
+margin_right = 464.0
+margin_bottom = 325.0
 
 [node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxAzimuthAngel"]
 margin_right = 191.0
@@ -408,16 +447,54 @@ rect_min_size = Vector2( 10, 0 )
 
 [node name="CenterContainer2" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxAzimuthAngel"]
 margin_left = 209.0
-margin_right = 460.0
+margin_right = 464.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 
 [node name="HScrollBar" type="HScrollBar" parent="GUI/Panel/VBoxContainer/HBoxAzimuthAngel/CenterContainer2"]
-margin_left = 5.0
+margin_left = 7.0
 margin_top = 14.0
-margin_right = 245.0
+margin_right = 247.0
 margin_bottom = 26.0
 rect_min_size = Vector2( 240, 12 )
+max_value = 1.0
+
+[node name="HBoxAzimuthAngelIncrement" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
+margin_top = 329.0
+margin_right = 464.0
+margin_bottom = 369.0
+
+[node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxAzimuthAngelIncrement"]
+margin_right = 206.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 160, 40 )
+
+[node name="Label" type="Label" parent="GUI/Panel/VBoxContainer/HBoxAzimuthAngelIncrement/CenterContainer"]
+margin_top = 13.0
+margin_right = 206.0
+margin_bottom = 27.0
+size_flags_vertical = 1
+text = "azimuth Angel Offset Increment"
+
+[node name="Empty" type="Label" parent="GUI/Panel/VBoxContainer/HBoxAzimuthAngelIncrement"]
+margin_left = 210.0
+margin_top = 13.0
+margin_right = 220.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 10, 0 )
+
+[node name="CenterContainer2" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxAzimuthAngelIncrement"]
+margin_left = 224.0
+margin_right = 464.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="HScrollBar" type="HScrollBar" parent="GUI/Panel/VBoxContainer/HBoxAzimuthAngelIncrement/CenterContainer2"]
+margin_top = 14.0
+margin_right = 240.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 240, 12 )
+min_value = -1.0
 max_value = 1.0
 
 [node name="HBoxAutoRotate" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
@@ -495,9 +572,9 @@ margin_right = 76.0
 margin_bottom = 40.0
 
 [node name="---Special---" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
-margin_top = 285.0
-margin_right = 460.0
-margin_bottom = 302.0
+margin_top = 373.0
+margin_right = 464.0
+margin_bottom = 390.0
 
 [node name="Label" type="Label" parent="GUI/Panel/VBoxContainer/---Special---"]
 margin_right = 56.0
@@ -507,9 +584,9 @@ custom_fonts/font = SubResource( 11 )
 text = "Special"
 
 [node name="HBoxLookAtTargetType" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
-margin_top = 306.0
-margin_right = 460.0
-margin_bottom = 346.0
+margin_top = 394.0
+margin_right = 464.0
+margin_bottom = 434.0
 
 [node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxLookAtTargetType"]
 margin_right = 160.0
@@ -533,15 +610,15 @@ rect_min_size = Vector2( 10, 0 )
 
 [node name="OptionButton" type="OptionButton" parent="GUI/Panel/VBoxContainer/HBoxLookAtTargetType"]
 margin_left = 178.0
-margin_right = 460.0
+margin_right = 464.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 240, 40 )
 size_flags_horizontal = 3
 
 [node name="HBoxLookAtSpatial" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
-margin_top = 350.0
-margin_right = 460.0
-margin_bottom = 390.0
+margin_top = 438.0
+margin_right = 464.0
+margin_bottom = 478.0
 
 [node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxLookAtSpatial"]
 margin_right = 160.0
@@ -565,15 +642,15 @@ rect_min_size = Vector2( 10, 0 )
 
 [node name="OptionButton" type="OptionButton" parent="GUI/Panel/VBoxContainer/HBoxLookAtSpatial"]
 margin_left = 178.0
-margin_right = 460.0
+margin_right = 464.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 240, 40 )
 size_flags_horizontal = 3
 
 [node name="HBoxLookAtPoint" type="HBoxContainer" parent="GUI/Panel/VBoxContainer"]
-margin_top = 394.0
-margin_right = 460.0
-margin_bottom = 434.0
+margin_top = 482.0
+margin_right = 464.0
+margin_bottom = 522.0
 
 [node name="CenterContainer" type="CenterContainer" parent="GUI/Panel/VBoxContainer/HBoxLookAtPoint"]
 margin_right = 160.0
@@ -597,7 +674,7 @@ rect_min_size = Vector2( 10, 0 )
 
 [node name="x" type="HBoxContainer" parent="GUI/Panel/VBoxContainer/HBoxLookAtPoint"]
 margin_left = 178.0
-margin_right = 269.0
+margin_right = 270.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 
@@ -626,8 +703,8 @@ rect_min_size = Vector2( 60, 0 )
 text = "15"
 
 [node name="y" type="HBoxContainer" parent="GUI/Panel/VBoxContainer/HBoxLookAtPoint"]
-margin_left = 273.0
-margin_right = 364.0
+margin_left = 274.0
+margin_right = 367.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 
@@ -656,8 +733,8 @@ rect_min_size = Vector2( 60, 0 )
 text = "50"
 
 [node name="z" type="HBoxContainer" parent="GUI/Panel/VBoxContainer/HBoxLookAtPoint"]
-margin_left = 368.0
-margin_right = 460.0
+margin_left = 371.0
+margin_right = 464.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 
