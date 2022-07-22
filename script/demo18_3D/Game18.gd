@@ -114,5 +114,5 @@ func ExcuteAction():
 				excButton.text="Start"
 	pass
 func GourndAction():
-	actionInstance.flyToGround()
+	actionInstance.FlyToGround()
 	pass

@@ -43,20 +43,10 @@ skeleton = NodePath("../..")
 material/0 = null
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.987823, 0.155568, 6.80011e-09, 0, -4.37113e-08, 1, 0.155568, -0.987823, -4.31792e-08, -0.0149562, 30.6173, 0.0949683 )
+transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -0.0149562, 30.6173, 0.0949688 )
 doppler_tracking = 1
 size = 0.1
 script = ExtResource( 3 )
-Protagonist/type = 1
-Protagonist/Point = Vector3( 0, 0, 0 )
-Lerp/enable = true
-Lerp/speed = 0.5
-Angel/zenithOffset = 0.001
-Angel/azimuthOffset = 0.275
-Distance/Max = 46.235
-Distance/Min = 15.0
-Distance/offset = 0.5
-AutoSurround/enable = false
 
 [node name="Cube" type="KinematicBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.29545, 1.62284, 9.86896 )
@@ -761,3 +751,5 @@ margin_right = 85.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 60, 0 )
 text = "50"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://UILib/img/ButtonGreyBackground.svg" type="Texture" id=1]
+
+[node name="Button" type="TextureButton"]
+texture_normal = ExtResource( 1 )

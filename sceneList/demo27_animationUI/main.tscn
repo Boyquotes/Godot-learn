@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=2]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+
+[sub_resource type="StreamTexture" id=2]
+flags = 4
+
+[sub_resource type="GDScript" id=3]
+script/source = "
+extends TextureButton
+
+const SCALE = 1.2
+const DURATION = 0.2
+
+onready var _initial_scale = get_scale()
+var _scale_tween = null
+
+
+func _ready():
+	self.connect(\"mouse_entered\", self, \"_on_mouse_enter\")
+	self.connect(\"mouse_exited\", self, \"_on_mouse_exit\")
+	_scale_tween = Tween.new()
+	add_child(_scale_tween)
+
+
+func _process(delta):
+	_scale_tween.interpolate_property(get_parent(), \"transform/scale\", \\
+		get_parent().get_scale(), _initial_scale*SCALE, DURATION, Tween.TRANS_QUAD, Tween.EASE_OUT)
+	_scale_tween.start()
+
+
+func _on_mouse_enter():
+	_scale_tween.interpolate_property(get_parent(), \"transform/scale\", \\
+		get_parent().get_scale(), _initial_scale*SCALE, DURATION, Tween.TRANS_QUAD, Tween.EASE_OUT)
+	_scale_tween.start()
+
+
+func _on_mouse_exit():
+	_scale_tween.interpolate_property(get_parent(), \"transform/scale\", \\
+		get_parent().get_scale(), _initial_scale, DURATION, Tween.TRANS_QUAD, Tween.EASE_OUT)
+	_scale_tween.start()
+
+
+"
+
+[node name="Node" type="Node"]
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="TextureButton" type="TextureButton" parent="Node2D"]
+mouse_filter = 1
+texture_normal = SubResource( 1 )
+texture_hover = SubResource( 2 )
+script = SubResource( 3 )
+
+[node name="Label" type="Label" parent="Node2D/TextureButton"]
+text = "Click me"

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/慢速C1.wav-033256e06a19670424f54b3f82a4286e.sample"
+
+[deps]
+
+source_file="res://sceneList/demo28_LaunchPad/Audio/loop/slow/慢速C1.wav"
+dest_files=[ "res://.import/慢速C1.wav-033256e06a19670424f54b3f82a4286e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0

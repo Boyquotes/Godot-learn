@@ -1,12 +1,15 @@
-#ProtagonistCamera V0.1 2022.6.21
+#ProtagonistCamera V1.0 2022.6.21
 #Code By Xmy 
-tool
+
 extends Spatial
 
 enum LerpMethod{Defalut}
 enum LookAtTargetType{SpatialNode,Vector3Point}
 
 enum CheckType{SetMode,SetSubMode,SetLookAtTargetType,SetLookAtSpatial,SetLookAtPoint,SetZenithAngelOffset,SetAzimuthAngelOffse,SetDistanceOffset,SetDistanceMax,SetDistanceMin,SetLerpSpeed}
+
+var lastTargetPosition =Vector3(0,0,0)
+var hasTargetPositionChanged = true
 
 #regin config Variable
 var isLerp:bool = true setget SetLerp , GetLerp
@@ -26,7 +29,7 @@ var lookAtPoint:Vector3 = Vector3(0,0,0) setget SetLookAtPoint , GetLookAtPoint
 var isAutoSurround:bool = false
 var autoSurroundSpeed:float = 1 
 
-#end Config Variable
+#endregion
 
 #region Editor script
 func _set(prop_name: String, val) -> bool:
@@ -178,7 +181,7 @@ func _get_property_list() -> Array:
 		})
 
 	return ret
-#end Editor script
+#endregion
 
 #region Godot callback
 func _init():
@@ -206,6 +209,10 @@ func _physics_process(delta):
 	else:
 		targetPosition=lookAtPoint
 	
+	if(lastTargetPosition.distance_squared_to(targetPosition)>0.01):
+		lastTargetPosition = targetPosition
+		hasTargetPositionChanged = true
+		
 	var cameraPosition = Vector3(targetPosition.x+distance*sin(zenithAngel)*cos(azimuthAngel),
 	targetPosition.y+distance*cos(zenithAngel),targetPosition.z+distance*sin(zenithAngel)*sin(azimuthAngel))
 
@@ -213,7 +220,7 @@ func _physics_process(delta):
 		LookAtPositionLerp(cameraPosition,targetPosition)
 	else:
 		LookAtPosition(cameraPosition,targetPosition)
-#end Godot callback
+#endregion
 
 #region Setter
 func SetLookAtTargetType(value:int):
@@ -268,7 +275,7 @@ func SetLerpSpeed(value:float):
 		return
 
 	lerpSpeed=value
-#end Setter
+#endregion
 
 #region Getter
 func GetLookAtTargetType():
@@ -291,7 +298,7 @@ func GetLerp():
 	return isLerp
 func GetLerpSpeed():
 	return lerpSpeed
-#end Getter
+#endregion
 
 
 #region Public Method
@@ -313,7 +320,7 @@ func SetAzimuthAngelOffsetIncrement(increment:float):
 		self.azimuthAngelOffset = val + 1
 	else:
 		self.azimuthAngelOffset = val
-#region end
+#endregion
 
 
 #region Internal Method(Do not call outsise this class!!)
@@ -382,7 +389,7 @@ func LookAtLerp(taregtPosition,worldUp=Vector3.UP):
 	
 	var cameraAxis_Y= cameraAxis_Z.cross(cameraAxis_X)
 
-	var quat = Quat(transform.basis).slerp(Quat(Basis(cameraAxis_X,cameraAxis_Y,cameraAxis_Z)),lerpSpeed) 
+	var quat = Quat(transform.basis).slerp(Quat(Basis(cameraAxis_X,cameraAxis_Y,cameraAxis_Z)),lerpSpeed*4) 
 
 	transform.basis = Basis(quat)
 
@@ -393,9 +400,13 @@ func LookAtPosition(position,taregtPosition,worldUp=Vector3.UP):
 	# LookAt(taregtPosition,worldUp)
 
 func LookAtPositionLerp(position,taregtPosition,worldUp=Vector3.UP):
+	# 2D Mode
+	if(zenithAngelOffset<=0.001 or zenithAngelOffset>=0.999):
+		transform.origin= lerp(transform.origin,position,lerpSpeed)  
+	else:
+	# 3D Mode
+		transform.origin= lerp(transform.origin,position,lerpSpeed)  
+		LookAt(taregtPosition,worldUp)
 
-	transform.origin= lerp(transform.origin,position,lerpSpeed)  
-	LookAt(taregtPosition,worldUp)
 
-
-#end Internal Method
+#endregion

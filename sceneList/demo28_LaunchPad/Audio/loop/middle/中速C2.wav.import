@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/中速C2.wav-463d94d818d7add12f47e3debf66d366.sample"
+
+[deps]
+
+source_file="res://sceneList/demo28_LaunchPad/Audio/loop/middle/中速C2.wav"
+dest_files=[ "res://.import/中速C2.wav-463d94d818d7add12f47e3debf66d366.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0

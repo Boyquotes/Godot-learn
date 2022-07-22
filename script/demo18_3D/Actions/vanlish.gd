@@ -7,7 +7,7 @@ class_name VanlishAction
 #消失动画持续时间 单位秒
 var vanlishDuration =3
 var ShaderAlphaUniformValuePath="/MeshInstance:material/0:shader_param/AlphaUniform"
-
+#MeshInstance:material/0:shader_param/AlphaUniform
 
 var animationPlayerNode
 

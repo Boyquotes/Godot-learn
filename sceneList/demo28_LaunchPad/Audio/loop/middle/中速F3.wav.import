@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/中速F3.wav-b517a21fb3e5b7d1e7da307cb062a355.sample"
+
+[deps]
+
+source_file="res://sceneList/demo28_LaunchPad/Audio/loop/middle/中速F3.wav"
+dest_files=[ "res://.import/中速F3.wav-b517a21fb3e5b7d1e7da307cb062a355.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0
