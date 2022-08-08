@@ -1,6 +1,6 @@
 #ProtagonistCamera V1.0 2022.6.21
 #Code By Xmy 
-
+tool
 extends Spatial
 
 enum LerpMethod{Defalut}

@@ -29,20 +29,50 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://script/demo18_3D/Actions/Fly.gd"
 }, {
+"base": "Node",
+"class": "Info",
+"language": "GDScript",
+"path": "res://player-manager/player/info.gd"
+}, {
 "base": "BasicAction",
 "class": "JumpAction",
 "language": "GDScript",
 "path": "res://script/demo18_3D/Actions/Jump.gd"
+}, {
+"base": "Spatial",
+"class": "Model",
+"language": "GDScript",
+"path": "res://player-manager/player/stateMachine/state.gd"
 }, {
 "base": "Node2D",
 "class": "MyClass",
 "language": "GDScript",
 "path": "res://script/demo02_base/MyClass.gd"
 }, {
+"base": "KinematicBody",
+"class": "Player",
+"language": "GDScript",
+"path": "res://player-manager/player/Player.gd"
+}, {
+"base": "Node",
+"class": "PlayerState",
+"language": "GDScript",
+"path": "res://player-manager/player/stateMachine/PlayerState.gd"
+}, {
+"base": "Reference",
+"class": "PlayerTool",
+"language": "GDScript",
+"path": "res://player-manager/player/script/player_tool.gd"
+}, {
 "base": "BasicAction",
 "class": "RotateAction",
 "language": "GDScript",
 "path": "res://script/demo18_3D/Actions/Rotate.gd"
+}, {
+"base": "Node",
+"class": "StateManager",
+"language": "GDScript",
+"path": "res://player-manager/player/stateMachine/StateManager.gd"
 }, {
 "base": "BasicAction",
 "class": "VanlishAction",
@@ -54,9 +84,15 @@ _global_script_class_icons={
 "AudioLoader": "",
 "BasicAction": "",
 "FlyAction": "",
+"Info": "",
 "JumpAction": "",
+"Model": "",
 "MyClass": "res://icon.png",
+"Player": "",
+"PlayerState": "",
+"PlayerTool": "",
 "RotateAction": "",
+"StateManager": "",
 "VanlishAction": ""
 }
 
@@ -77,8 +113,6 @@ window/size/width=1080
 window/size/height=1920
 window/dpi/allow_hidpi=true
 window/handheld/orientation="portrait"
-window/stretch/mode="viewport"
-window/stretch/aspect="expand"
 
 [editor_plugins]
 

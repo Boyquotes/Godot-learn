@@ -17,6 +17,7 @@ var fileSubPattern = ["A(\\d){1,2}", "B(\\d){1,2}", "C(\\d){1,2}", "D(\\d){1,2}"
 
 
 #region Internal Variable
+onready var currentBeat=0
 onready var launchPadAudio:LaunchPadAudio = LaunchPadAudio.new()
 onready var currentGroupType = null
 onready var audioStreamPlayer = []
@@ -202,14 +203,18 @@ func MakeLaunchPadAudioLoop(filePathArray):
 
 #region Event Callback
 func ExecuteTast():
-	for item in audioAddArray:
-		SetAudioStreamPlayer(item["audioPath"], item["audioStreamPlayer"])
-	for item in audioRemoveArray:
-		item.stop()
-	audioAddArray.clear()
-	audioRemoveArray.clear()
-	
-	emit_signal("beat")
+	currentBeat +=1 
+
+	if(currentBeat==3):
+		currentBeat=0
+		for item in audioAddArray:
+			SetAudioStreamPlayer(item["audioPath"], item["audioStreamPlayer"])
+		for item in audioRemoveArray:
+			item.stop()
+		audioAddArray.clear()
+		audioRemoveArray.clear()
+		
+		emit_signal("beat")
 #endregion
 
 #region Internal Class

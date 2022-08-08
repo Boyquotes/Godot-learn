@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://sceneList/demo21_camera/Scripts/Game.gd" type="Script" id=1]
 [ext_resource path="res://font/SourceHanSansCN-Bold.otf" type="DynamicFontData" id=2]
 [ext_resource path="res://sceneList/demo21_camera/Scripts/ProtagonistCamera.gd" type="Script" id=3]
+[ext_resource path="res://sceneList/demo21_camera/Cube2.gd" type="Script" id=4]
 
 [sub_resource type="BoxShape" id=4]
 extents = Vector3( 15, 0.5, 15 )
@@ -40,13 +41,22 @@ shape = SubResource( 4 )
 [node name="MeshInstance" type="MeshInstance" parent="Ground/StaticBody"]
 mesh = SubResource( 1 )
 skeleton = NodePath("../..")
-material/0 = null
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -0.0149562, 30.6173, 0.0949688 )
+transform = Transform( 0.000628069, -0.588171, 0.808736, 0, 0.808735, 0.588171, -0.999999, -0.000369413, 0.000507943, 24.7109, 25.1497, -5.16204 )
 doppler_tracking = 1
 size = 0.1
 script = ExtResource( 3 )
+Protagonist/type = 0
+Protagonist/Spatial = NodePath("../Cube2")
+Lerp/enable = true
+Lerp/speed = 0.3
+Angel/zenithOffset = 0.3
+Angel/azimuthOffset = 0.0001
+Distance/Max = 40.0
+Distance/Min = 15.0
+Distance/offset = 1.0
+AutoSurround/enable = false
 
 [node name="Cube" type="KinematicBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.29545, 1.62284, 9.86896 )
@@ -60,6 +70,8 @@ material/0 = SubResource( 12 )
 
 [node name="Cube2" type="KinematicBody" parent="."]
 transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, -7.63857, 1.62284, -5.18236 )
+script = ExtResource( 4 )
+cameraPath = NodePath("../Camera")
 
 [node name="CollisionShape" type="CollisionShape" parent="Cube2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0234238, 0 )

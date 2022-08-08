@@ -18,7 +18,7 @@ onready var LaunchPadController = get_node("GameLogic/LaunchPadController")
 onready var label1 = get_node("Label/speed")
 onready var label2 = get_node("Label2/level")
 
-onready var currentLevel = -1
+onready var currentLevel = 0
 onready var currentType = GroupType.Fast
 
 func _ready():
