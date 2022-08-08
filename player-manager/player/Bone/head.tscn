@@ -1,0 +1,5 @@
+[gd_scene format=2]
+
+[node name="head" type="BoneAttachment"]
+transform = Transform( 0.99998, 0.00110323, 0.00616889, -0.000321466, 0.992117, -0.125309, -0.00625851, 0.125304, 0.992099, -0.034885, 3.36068, -0.0367346 )
+bone_name = "head"

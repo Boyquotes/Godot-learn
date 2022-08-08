@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Crying.mp3-214540e521dc80b90eecbbb2c956d24d.mp3str"
+
+[deps]
+
+source_file="res://player-manager/player/stateMachine/sounds/Crying.mp3"
+dest_files=[ "res://.import/Crying.mp3-214540e521dc80b90eecbbb2c956d24d.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

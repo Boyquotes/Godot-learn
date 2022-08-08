@@ -1,0 +1,85 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://sceneList/demo22_shader/pic/Frame 6362.png" type="Texture" id=1]
+[ext_resource path="res://sceneList/demo22_shader/pic/black.png" type="Texture" id=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform vec2 start = vec2(0, -0.45);
+uniform vec2 end = vec2(-0.45, 0.5);
+uniform float radius = 0.1;
+uniform float lineThick = 0.01;
+
+uniform float width = 200.0;
+uniform float height = 250.0;
+uniform bool flip = true;
+
+varying vec2 pos;
+
+void vertex() {
+	if(flip){
+		pos = vec2(VERTEX.x/width, -VERTEX.y/height) - vec2(0.5, -0.5);
+	}
+	else{
+		pos = vec2(VERTEX.x/width, VERTEX.y/height) - vec2(0.5, 0.5);
+	}
+  
+}
+
+
+void fragment(){
+	vec4 color = vec4(1.0, 1.0, 1.0, 0.0);
+	vec2 center = vec2((end.x-lineThick + radius),(start.y - lineThick + radius));
+	
+	if(pos.x >= (end.x-lineThick) && pos.x <= start.x){
+		if(pos.x >= center.x  && pos.y<=(start.y + lineThick) && pos.y>=(start.y - lineThick)) {
+			color.a = 1.0;
+		}
+		else if(pos.x <= (end.x + lineThick) &&  pos.y <= end.y && pos.y >= center.y){
+			color.a = 1.0;
+		}
+		else if(pos.x<center.x && pos.y < center.y){
+			float magnitude = distance(pos,center);
+			if( magnitude < (center.y-start.y+ lineThick) && magnitude > (center.y- start.y - lineThick)){
+				color.a = 1.0;
+			}
+		}
+	}
+//
+	COLOR = vec4(color);
+	
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/start = Vector2( 0, -0.45 )
+shader_param/end = Vector2( -0.45, 0.5 )
+shader_param/radius = 0.1
+shader_param/lineThick = 0.01
+shader_param/width = 200.0
+shader_param/height = 250.0
+shader_param/flip = true
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Control" type="TextureRect" parent="."]
+material = SubResource( 2 )
+margin_left = -56.0
+margin_top = 8.0
+margin_right = 144.0
+margin_bottom = 258.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+visible = false
+margin_left = 64.0
+margin_right = 186.0
+margin_bottom = 122.0
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 1

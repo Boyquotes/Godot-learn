@@ -1,0 +1,5 @@
+[gd_scene format=2]
+
+[node name="PropL" type="BoneAttachment"]
+transform = Transform( -1, 9.6728e-08, -7.15256e-07, -7.15256e-07, -1.01644e-20, 1, 9.6728e-08, 1, 6.91852e-14, 0.999998, 2.84217e-14, 0 )
+bone_name = "prop.L"

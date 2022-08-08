@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/demi_sphere.obj-207d53c92f77f3d2624e8b2fbf0fa7bc.mesh"
+
+[deps]
+
+files=[ "res://.import/demi_sphere.obj-207d53c92f77f3d2624e8b2fbf0fa7bc.mesh" ]
+
+source_file="res://sceneList/zone0005_disco/prefab/portal/meshes/demi_sphere.obj"
+dest_files=[ "res://.import/demi_sphere.obj-207d53c92f77f3d2624e8b2fbf0fa7bc.mesh", "res://.import/demi_sphere.obj-207d53c92f77f3d2624e8b2fbf0fa7bc.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

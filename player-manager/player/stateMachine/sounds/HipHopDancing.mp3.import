@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/HipHopDancing.mp3-cf84b8a298187aaf30d37e9a4f71db31.mp3str"
+
+[deps]
+
+source_file="res://player-manager/player/stateMachine/sounds/HipHopDancing.mp3"
+dest_files=[ "res://.import/HipHopDancing.mp3-cf84b8a298187aaf30d37e9a4f71db31.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

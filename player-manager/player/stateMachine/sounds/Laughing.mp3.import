@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Laughing.mp3-8153256eccb0505c1eee2c6febd0ed42.mp3str"
+
+[deps]
+
+source_file="res://player-manager/player/stateMachine/sounds/Laughing.mp3"
+dest_files=[ "res://.import/Laughing.mp3-8153256eccb0505c1eee2c6febd0ed42.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

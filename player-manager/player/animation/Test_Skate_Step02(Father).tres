@@ -1,0 +1,35 @@
+[gd_resource type="Animation" format=2]
+
+[resource]
+resource_name = "Test_Skate_Step02(Father)"
+length = 0.8
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("..:translation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.8004 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("..:translation:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1.44, -0.25, 0, 0.25, 0, 1.44, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.8004 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("..:translation:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( -10, 0, 0, 0, 0, -15, -0.2, 0.286682, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.8 )
+}

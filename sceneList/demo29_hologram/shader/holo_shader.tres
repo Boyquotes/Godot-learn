@@ -1,0 +1,85 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type spatial;
+
+
+uniform sampler2D texture : hint_albedo;
+
+void fragment() {
+
+	ALBEDO = texture(texture, UV.xy).rgb;
+	ALPHA =0.5;
+}
+
+uniform float Deformation;
+uniform vec4 EmissionColor : hint_color;
+uniform vec4 EmissionColor2 : hint_color;
+uniform float Opacity;
+uniform float EmissionStrength;
+
+
+// GlobalExpression:0
+	uniform float contraction : hint_range(0, 10);
+	uniform float speed : hint_range(0, 10);
+	
+	
+	float wave(float y, float time, float c){
+		return (sin((y + time * speed) * c));
+	}
+	
+	float waves(float y){
+		float wave1 = wave(y, TIME, contraction) * 0.2;
+		float wave2 = wave(y, -TIME * .2 + 1.0, contraction * 2.0) * .4;
+		return wave1 * wave2;
+	}
+
+void vertex() {
+// Input:10
+	vec3 n_out10p0 = VERTEX;
+
+// Expression:9
+	float n_out9p0;
+	vec3 n_out9p1;
+	n_out9p0 = 0.0;
+	n_out9p1 = vec3(0.0, 0.0, 0.0);
+	{
+		n_out9p1 = (PROJECTION_MATRIX * vec4(VERTEX, 1.0)).xyz;
+		n_out9p0 = n_out9p1.y * 1.0;
+	}
+
+// Expression:48
+	float n_out48p0;
+	n_out48p0 = 0.0;
+	{
+		n_out48p0 = round(wave(n_out9p0 * 2.0, TIME, contraction * 2.0) * pow(10.0, 1)) / pow(10.0, 1)
+	}
+
+// Expression:47
+	float n_out47p0;
+	n_out47p0 = 0.0;
+	{
+		n_out47p0 = round(waves(n_out9p0) * pow(10.0, 1)) / pow(10.0, 1)
+	}
+
+// ScalarUniform:28
+	float n_out28p0 = Deformation;
+
+// ScalarOp:27
+	float n_out27p0 = n_out47p0 * n_out28p0;
+
+// ScalarOp:49
+	float n_out49p0 = n_out48p0 * n_out27p0;
+
+// VectorCompose:12
+	float n_in12p1 = 0.00000;
+	vec3 n_out12p0 = vec3(n_out49p0, n_in12p1, n_out49p0);
+
+// VectorOp:6
+	vec3 n_out6p0 = n_out10p0 + n_out12p0;
+
+// Output:0
+	VERTEX = n_out6p0;
+	COLOR.rgb = n_out9p1;
+
+}"

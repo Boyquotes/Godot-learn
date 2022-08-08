@@ -1,0 +1,343 @@
+[gd_resource type="AnimationNodeBlendTree" load_steps=70 format=2]
+
+[sub_resource type="AnimationNodeAdd2" id=193]
+resource_local_to_scene = true
+
+[sub_resource type="AnimationNodeAnimation" id=195]
+resource_local_to_scene = true
+
+[sub_resource type="AnimationNodeTimeSeek" id=197]
+resource_local_to_scene = true
+
+[sub_resource type="AnimationNodeBlendTree" id=196]
+resource_local_to_scene = true
+nodes/Animation/node = SubResource( 195 )
+nodes/Animation/position = Vector2( 360, 120 )
+nodes/Seek/node = SubResource( 197 )
+nodes/Seek/position = Vector2( 560, 120 )
+nodes/output/position = Vector2( 720, 120 )
+node_connections = [ "output", 0, "Seek", "Seek", 0, "Animation" ]
+
+[sub_resource type="AnimationNodeStateMachine" id=194]
+resource_local_to_scene = true
+states/Ani/node = SubResource( 196 )
+states/Ani/position = Vector2( 554, 138 )
+start_node = "Ani"
+
+[sub_resource type="AnimationNodeBlend2" id=210]
+resource_local_to_scene = true
+
+[sub_resource type="AnimationNodeAnimation" id=185]
+resource_local_to_scene = true
+animation = "106_Walk_Victory01"
+
+[sub_resource type="AnimationNodeTimeSeek" id=187]
+resource_local_to_scene = true
+
+[sub_resource type="AnimationNodeBlendTree" id=186]
+resource_local_to_scene = true
+graph_offset = Vector2( -152.92, 65.5 )
+nodes/Animation/node = SubResource( 185 )
+nodes/Animation/position = Vector2( 40, 120 )
+nodes/Seek/node = SubResource( 187 )
+nodes/Seek/position = Vector2( 300, 120 )
+nodes/output/position = Vector2( 480, 120 )
+node_connections = [ "output", 0, "Seek", "Seek", 0, "Animation" ]
+
+[sub_resource type="AnimationNodeStateMachine" id=184]
+resource_local_to_scene = true
+states/Ani/node = SubResource( 186 )
+states/Ani/position = Vector2( 396, 144 )
+start_node = "Ani"
+
+[sub_resource type="AnimationNodeBlend2" id=212]
+resource_local_to_scene = true
+
+[sub_resource type="AnimationNodeAdd2" id=201]
+resource_local_to_scene = true
+
+[sub_resource type="AnimationNodeAnimation" id=188]
+resource_local_to_scene = true
+animation = "015_Wave"
+
+[sub_resource type="AnimationNodeAnimation" id=202]
+resource_local_to_scene = true
+animation = "Test_Skate_01"
+
+[sub_resource type="AnimationNodeTimeSeek" id=191]
+resource_local_to_scene = true
+
+[sub_resource type="AnimationNodeBlendTree" id=189]
+resource_local_to_scene = true
+graph_offset = Vector2( 0, 81 )
+nodes/Add2/node = SubResource( 201 )
+nodes/Add2/position = Vector2( 480, 120 )
+nodes/Animation/node = SubResource( 188 )
+nodes/Animation/position = Vector2( 220, 120 )
+nodes/MoveAnimation/node = SubResource( 202 )
+nodes/MoveAnimation/position = Vector2( 240, 280 )
+nodes/Seek/node = SubResource( 191 )
+nodes/Seek/position = Vector2( 700, 120 )
+nodes/output/position = Vector2( 900, 120 )
+node_connections = [ "output", 0, "Seek", "Seek", 0, "Add2", "Add2", 0, "Animation", "Add2", 1, "MoveAnimation" ]
+
+[sub_resource type="AnimationNodeStateMachine" id=190]
+resource_local_to_scene = true
+states/Ani/node = SubResource( 189 )
+states/Ani/position = Vector2( 348, 211 )
+start_node = "Ani"
+
+[sub_resource type="AnimationNodeAnimation" id=150]
+resource_local_to_scene = true
+animation = "009_Fly"
+
+[sub_resource type="AnimationNodeBlendTree" id=151]
+resource_local_to_scene = true
+nodes/Animation/node = SubResource( 150 )
+nodes/Animation/position = Vector2( 260, 200 )
+nodes/output/position = Vector2( 480, 200 )
+node_connections = [ "output", 0, "Animation" ]
+
+[sub_resource type="AnimationNodeStateMachine" id=114]
+resource_local_to_scene = true
+states/Fly/node = SubResource( 151 )
+states/Fly/position = Vector2( 509, 198 )
+
+[sub_resource type="AnimationNodeAnimation" id=158]
+resource_local_to_scene = true
+animation = "119_Creep"
+
+[sub_resource type="AnimationNodeBlendTree" id=145]
+resource_local_to_scene = true
+nodes/Animation/node = SubResource( 158 )
+nodes/Animation/position = Vector2( 240, 100 )
+nodes/output/position = Vector2( 420, 100 )
+node_connections = [ "output", 0, "Animation" ]
+
+[sub_resource type="AnimationNodeAnimation" id=146]
+resource_local_to_scene = true
+animation = "126_flat_01"
+
+[sub_resource type="AnimationNodeBlendTree" id=147]
+resource_local_to_scene = true
+graph_offset = Vector2( 0, 79.25 )
+nodes/Animation/node = SubResource( 146 )
+nodes/Animation/position = Vector2( 180, 140 )
+nodes/output/position = Vector2( 400, 140 )
+node_connections = [ "output", 0, "Animation" ]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=148]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=149]
+
+[sub_resource type="AnimationNodeStateMachine" id=115]
+resource_local_to_scene = true
+states/Creep/node = SubResource( 145 )
+states/Creep/position = Vector2( 508, 158 )
+states/Flat/node = SubResource( 147 )
+states/Flat/position = Vector2( 345, 158 )
+transitions = [ "Flat", "Creep", SubResource( 148 ), "Creep", "Flat", SubResource( 149 ) ]
+start_node = "Flat"
+
+[sub_resource type="AnimationNodeAnimation" id=192]
+resource_local_to_scene = true
+animation = "005_Sit_Continue"
+
+[sub_resource type="AnimationNodeBlendTree" id=155]
+resource_local_to_scene = true
+nodes/Animation/node = SubResource( 192 )
+nodes/Animation/position = Vector2( 260, 100 )
+nodes/output/position = Vector2( 500, 100 )
+node_connections = [ "output", 0, "Animation" ]
+
+[sub_resource type="AnimationNodeAnimation" id=171]
+resource_local_to_scene = true
+animation = "004_Sit_Start"
+
+[sub_resource type="AnimationNodeBlendTree" id=172]
+resource_local_to_scene = true
+graph_offset = Vector2( 0, 65.5 )
+nodes/Animation/node = SubResource( 171 )
+nodes/Animation/position = Vector2( 140, 180 )
+nodes/output/position = Vector2( 360, 180 )
+node_connections = [ "output", 0, "Animation" ]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=176]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachine" id=116]
+resource_local_to_scene = true
+states/Sit/node = SubResource( 155 )
+states/Sit/position = Vector2( 519, 179 )
+states/SitStart/node = SubResource( 172 )
+states/SitStart/position = Vector2( 345, 179 )
+transitions = [ "SitStart", "Sit", SubResource( 176 ) ]
+start_node = "SitStart"
+
+[sub_resource type="AnimationNodeAnimation" id=159]
+resource_local_to_scene = true
+animation = "001_Idle"
+
+[sub_resource type="AnimationNodeBlendTree" id=160]
+resource_local_to_scene = true
+nodes/Animation/node = SubResource( 159 )
+nodes/Animation/position = Vector2( 145, 134 )
+nodes/output/position = Vector2( 380, 140 )
+node_connections = [ "output", 0, "Animation" ]
+
+[sub_resource type="AnimationNodeAnimation" id=144]
+resource_local_to_scene = true
+animation = "101_victory_1"
+
+[sub_resource type="AnimationNodeBlendTree" id=122]
+resource_local_to_scene = true
+graph_offset = Vector2( 0, 65.5 )
+nodes/Animation/node = SubResource( 144 )
+nodes/Animation/position = Vector2( 360, 140 )
+nodes/output/position = Vector2( 620, 140 )
+node_connections = [ "output", 0, "Animation" ]
+
+[sub_resource type="AnimationNodeAnimation" id=178]
+resource_local_to_scene = true
+animation = "006_Sit_End"
+
+[sub_resource type="AnimationNodeBlendTree" id=179]
+resource_local_to_scene = true
+graph_offset = Vector2( 0, 28.5 )
+nodes/Animation/node = SubResource( 178 )
+nodes/Animation/position = Vector2( 198, 129 )
+nodes/output/position = Vector2( 420, 140 )
+node_connections = [ "output", 0, "Animation" ]
+
+[sub_resource type="AnimationNodeAnimation" id=203]
+resource_local_to_scene = true
+animation = "102_Walk_Start"
+
+[sub_resource type="AnimationNodeBlendTree" id=204]
+resource_local_to_scene = true
+nodes/Animation/node = SubResource( 203 )
+nodes/Animation/position = Vector2( 60, 140 )
+node_connections = [ "output", 0, "Animation" ]
+
+[sub_resource type="AnimationNodeAnimation" id=213]
+resource_local_to_scene = true
+animation = "132_Jump"
+
+[sub_resource type="AnimationNodeBlendTree" id=214]
+resource_local_to_scene = true
+nodes/Animation/node = SubResource( 213 )
+nodes/Animation/position = Vector2( 153, 90 )
+nodes/output/position = Vector2( 360, 100 )
+node_connections = [ "output", 0, "Animation" ]
+
+[sub_resource type="AnimationNodeAnimation" id=161]
+resource_local_to_scene = true
+animation = "002_Walk"
+
+[sub_resource type="AnimationNodeBlendTree" id=162]
+resource_local_to_scene = true
+nodes/Animation/node = SubResource( 161 )
+nodes/Animation/position = Vector2( 140, 140 )
+nodes/output/position = Vector2( 380, 140 )
+node_connections = [ "output", 0, "Animation" ]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=163]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=164]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=165]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=166]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=180]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=205]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=206]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=211]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=215]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=216]
+
+[sub_resource type="AnimationNodeStateMachine" id=130]
+resource_local_to_scene = true
+states/Idle/node = SubResource( 160 )
+states/Idle/position = Vector2( 482.125, 121.348 )
+states/Jump/node = SubResource( 122 )
+states/Jump/position = Vector2( 306.125, 121.348 )
+states/SitUp/node = SubResource( 179 )
+states/SitUp/position = Vector2( 306.125, 50.348 )
+states/SkateStart/node = SubResource( 204 )
+states/SkateStart/position = Vector2( 598, 50.348 )
+states/UpJump/node = SubResource( 214 )
+states/UpJump/position = Vector2( 313.663, 189.972 )
+states/Walk/node = SubResource( 162 )
+states/Walk/position = Vector2( 708.125, 121.348 )
+transitions = [ "Idle", "Walk", SubResource( 163 ), "Walk", "Idle", SubResource( 164 ), "Idle", "Jump", SubResource( 165 ), "Jump", "Idle", SubResource( 166 ), "SitUp", "Idle", SubResource( 180 ), "Idle", "SkateStart", SubResource( 205 ), "SkateStart", "Walk", SubResource( 206 ), "SkateStart", "Idle", SubResource( 211 ), "UpJump", "Idle", SubResource( 215 ), "Idle", "UpJump", SubResource( 216 ) ]
+start_node = "Idle"
+graph_offset = Vector2( -26.7174, -43.0283 )
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=131]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=132]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=133]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=134]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=135]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=136]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=137]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=138]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=139]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=140]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=141]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=142]
+
+[sub_resource type="AnimationNodeStateMachine" id=113]
+resource_local_to_scene = true
+states/InSky/node = SubResource( 114 )
+states/InSky/position = Vector2( 843, 192 )
+states/OnGround/node = SubResource( 115 )
+states/OnGround/position = Vector2( 323, 373 )
+states/Sit/node = SubResource( 116 )
+states/Sit/position = Vector2( 843, 373 )
+states/Stand/node = SubResource( 130 )
+states/Stand/position = Vector2( 323, 192 )
+transitions = [ "Stand", "InSky", SubResource( 131 ), "InSky", "Stand", SubResource( 132 ), "Stand", "OnGround", SubResource( 133 ), "OnGround", "Stand", SubResource( 134 ), "OnGround", "Sit", SubResource( 135 ), "Sit", "OnGround", SubResource( 136 ), "Sit", "InSky", SubResource( 137 ), "InSky", "Sit", SubResource( 138 ), "Stand", "Sit", SubResource( 139 ), "Sit", "Stand", SubResource( 140 ), "OnGround", "InSky", SubResource( 141 ), "InSky", "OnGround", SubResource( 142 ) ]
+start_node = "Stand"
+graph_offset = Vector2( 30.0376, 132.324 )
+
+[resource]
+resource_local_to_scene = true
+graph_offset = Vector2( -453.905, -131 )
+nodes/EffectAdd/node = SubResource( 193 )
+nodes/EffectAdd/position = Vector2( 240, -60 )
+nodes/EffectStateMachine/node = SubResource( 194 )
+nodes/EffectStateMachine/position = Vector2( 0, 140 )
+nodes/MixAdd/node = SubResource( 210 )
+nodes/MixAdd/position = Vector2( -200, -60 )
+nodes/MixStateMachine/node = SubResource( 184 )
+nodes/MixStateMachine/position = Vector2( -460, 80 )
+nodes/OneShot/node = SubResource( 212 )
+nodes/OneShot/position = Vector2( 20, -60 )
+nodes/OneShotStateMachine/node = SubResource( 190 )
+nodes/OneShotStateMachine/position = Vector2( -240, 140 )
+nodes/StateMachine/node = SubResource( 113 )
+nodes/StateMachine/position = Vector2( -440, -60 )
+nodes/output/position = Vector2( 420, -60 )
+node_connections = [ "output", 0, "EffectAdd", "OneShot", 0, "MixAdd", "OneShot", 1, "OneShotStateMachine", "MixAdd", 0, "StateMachine", "MixAdd", 1, "MixStateMachine", "EffectAdd", 0, "OneShot", "EffectAdd", 1, "EffectStateMachine" ]

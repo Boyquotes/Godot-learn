@@ -1,0 +1,411 @@
+[gd_scene load_steps=61 format=2]
+
+[ext_resource path="res://player-manager/player/stateMachine/Walk.gd" type="Script" id=1]
+[ext_resource path="res://player-manager/player/stateMachine/PlayerState.gd" type="Script" id=2]
+[ext_resource path="res://player-manager/player/stateMachine/StateManager.gd" type="Script" id=3]
+[ext_resource path="res://player-manager/player/stateMachine/Sit.gd" type="Script" id=4]
+[ext_resource path="res://player-manager/player/player_model.tscn" type="PackedScene" id=5]
+[ext_resource path="res://player-manager/player/Player.gd" type="Script" id=6]
+[ext_resource path="res://player-manager/player/info.gd" type="Script" id=7]
+[ext_resource path="res://font/SourceHanSansCN-Regular.otf" type="DynamicFontData" id=8]
+[ext_resource path="res://player-manager/player/stateMachine/OneShot.gd" type="Script" id=9]
+[ext_resource path="res://player-manager/player/assets/ui/white679.png" type="Texture" id=10]
+[ext_resource path="res://player-manager/player/assets/ui/playerNameBg.png" type="Texture" id=11]
+[ext_resource path="res://player-manager/player/assets/ui/union.png" type="Texture" id=12]
+[ext_resource path="res://player-manager/player/assets/ui/blue679.png" type="Texture" id=13]
+[ext_resource path="res://player-manager/player/script/playerCollideArea.gd" type="Script" id=14]
+[ext_resource path="res://player-manager/player/Particles.tscn" type="PackedScene" id=15]
+[ext_resource path="res://player-manager/player/stateMachine/Music.gd" type="Script" id=16]
+[ext_resource path="res://player-manager/player/stateMachine/MixStateModel.gd" type="Script" id=17]
+[ext_resource path="res://player-manager/player/stateMachine/MixManager.gd" type="Script" id=18]
+[ext_resource path="res://player-manager/player/animation/player_animation.tres" type="AnimationNodeBlendTree" id=19]
+[ext_resource path="res://font/SourceHanSansCN-Bold.otf" type="DynamicFontData" id=20]
+[ext_resource path="res://player-manager/player/MicVolumeAni.tscn" type="PackedScene" id=21]
+[ext_resource path="res://font/cn_font.tres" type="DynamicFont" id=22]
+[ext_resource path="res://player-manager/player/assets/ui/text_bg.png" type="Texture" id=23]
+[ext_resource path="res://player-manager/player/stateMachine/EffectModel.gd" type="Script" id=24]
+[ext_resource path="res://player-manager/player/stateMachine/OneShotModel.gd" type="Script" id=25]
+[ext_resource path="res://player-manager/player/stateMachine/Idle.gd" type="Script" id=26]
+[ext_resource path="res://player-manager/player/stateMachine/Creep.gd" type="Script" id=27]
+[ext_resource path="res://player-manager/player/stateMachine/StateModel.gd" type="Script" id=28]
+[ext_resource path="res://player-manager/player/stateMachine/Flat.gd" type="Script" id=29]
+[ext_resource path="res://player-manager/player/stateMachine/Jump.gd" type="Script" id=30]
+[ext_resource path="res://player-manager/player/stateMachine/EffectManager.gd" type="Script" id=31]
+[ext_resource path="res://player-manager/player/animation/Test_Skate_Step02(Father).tres" type="Animation" id=32]
+[ext_resource path="res://player-manager/player/animation/Test_Skate_Step01(Child).tres" type="Animation" id=33]
+[ext_resource path="res://player-manager/player/animation/Test_Skate_Step03(Child).tres" type="Animation" id=34]
+[ext_resource path="res://player-manager/player/animation/Test_Skate_Step02(Child).tres" type="Animation" id=35]
+[ext_resource path="res://player-manager/player/animation/Test_Skate_Step01(Father).tres" type="Animation" id=36]
+[ext_resource path="res://player-manager/player/animation/Test_Skate_Step03(Father).tres" type="Animation" id=37]
+[ext_resource path="res://player-manager/player/animation/Test_Skate_Move(Father) .anim" type="Animation" id=38]
+[ext_resource path="res://player-manager/player/stateMachine/Fly.gd" type="Script" id=39]
+[ext_resource path="res://player-manager/player/stateMachine/UpJump.gd" type="Script" id=40]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=187]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=188]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=189]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=190]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=191]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=192]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=193]
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=194]
+
+[sub_resource type="Animation" id=244]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Armature:rotation_degrees:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Armature:rotation_degrees:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Armature:rotation_degrees:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="Animation" id=243]
+resource_name = "Test_Skate_01"
+length = 4.4
+tracks/0/type = "animation"
+tracks/0/path = NodePath("AnimationPlayer2")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": PoolStringArray( "Test_Skate_Step01(Child)", "Test_Skate_Step02(Child)", "Test_Skate_Step03(Child)" ),
+"times": PoolRealArray( 0, 1.6, 2.4 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Armature:rotation_degrees:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Armature:rotation_degrees:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, 0, 0, 0, 0 ),
+"times": PoolRealArray( 0, 4.4 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("Armature:rotation_degrees:z")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+
+[sub_resource type="ConvexPolygonShape" id=2]
+points = PoolVector3Array( -0.462256, -0.119769, -2.14023, 0.493866, 0.0170165, 2.0604, 0.462252, 0.119768, 2.14021, 0.426195, 0.221567, -2.13102, -0.216694, 0.449947, 1.9834, 0.0170165, -0.493866, 2.0604, 0.253375, -0.42242, -2.07809, 0.0170165, 0.493866, -2.0604, -0.462252, -0.119768, 2.14021, -0.413299, 0.28104, -1.9675, -0.216694, -0.449947, -1.9834, 0.253375, 0.42242, 2.07809, 0.351874, -0.351874, 2.02774, 0.4855, -0.117098, -1.99222, -0.087802, 0.122783, 2.47514, -0.4855, 0.117098, 1.99222, -0.087802, -0.122783, -2.47514, -0.351874, -0.351874, 2.02774, 0.28104, 0.413299, -1.9675, 0.122265, -0.226978, 2.42749, -0.253375, 0.42242, -2.07809, 0.117188, 0.485478, 1.99213, 0.0170168, -0.493874, -2.06043, -0.413299, -0.28104, -1.9675, 0.413299, 0.28104, 1.9675, 0.227075, 0.122164, -2.42747, -0.351874, 0.351874, 2.02774, -0.493866, 0.0170165, -2.0604, -0.226252, 0.226153, -2.38408, 0.4855, 0.117098, -1.99222, -0.148139, -0.477408, 1.85995, 0.148139, -0.477408, 1.85995, -0.477408, -0.148139, 1.85995, 0.449983, -0.216616, 1.98356, 0.413299, -0.28104, -1.9675, -0.226252, -0.226153, 2.38408, 0.29477, -0.260114, -2.30632, 0.0873104, 0.296717, 2.39142, -0.328488, 0.224719, 2.29976, -0.117188, 0.485478, 1.99213, -0.155839, -0.363592, -2.30322, 0.296718, -0.0872118, 2.39143, 0.0865633, 0.43262, -2.23242, -0.148139, 0.477408, -1.85995, 0.413299, 0.28104, -1.9675, 0.477408, 0.148139, 1.85995, -0.4855, -0.117098, -1.99222, -0.0865633, 0.43262, 2.23242, 0.148139, 0.477408, -1.85995, -0.477408, 0.148139, -1.85995, -0.449983, 0.216616, 1.98356, 0.432627, -0.0864665, -2.23245, 0.117188, -0.485478, -1.99213, -0.296718, -0.0872118, -2.39143, -0.0865633, -0.43262, 2.23242, 0.258489, -0.361943, 2.22377, -0.351874, -0.351874, -2.02774, -0.28104, -0.413299, 1.9675, -0.117188, -0.485478, -1.99213, -0.493874, 0.0170168, 2.06043, 0.328488, 0.224719, 2.29976, 0.0873104, -0.296717, -2.39142, 0.28104, -0.413299, -1.9675, -0.28104, 0.413299, -1.9675 )
+
+[sub_resource type="CapsuleMesh" id=1]
+radius = 0.5
+mid_height = 4.0
+radial_segments = 16
+rings = 6
+
+[sub_resource type="DynamicFont" id=3]
+size = 28
+font_data = ExtResource( 8 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 0.691484, 0.5, 1 )
+
+[sub_resource type="QuadMesh" id=184]
+resource_local_to_scene = true
+size = Vector2( 4.456, 1 )
+
+[sub_resource type="ViewportTexture" id=185]
+viewport_path = NodePath("palyerTextViewport")
+
+[sub_resource type="SpatialMaterial" id=186]
+resource_local_to_scene = true
+flags_transparent = true
+flags_unshaded = true
+flags_do_not_receive_shadows = true
+flags_disable_ambient_light = true
+params_billboard_mode = 1
+albedo_texture = SubResource( 185 )
+
+[sub_resource type="DynamicFont" id=183]
+size = 120
+font_data = ExtResource( 20 )
+
+[sub_resource type="ViewportTexture" id=245]
+viewport_path = NodePath("palyerNameViewport")
+
+[node name="player" type="KinematicBody"]
+collision_layer = 2
+collision_mask = 11
+script = ExtResource( 6 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = ExtResource( 19 )
+anim_player = NodePath("../Model/AnimationPlayer")
+active = true
+process_mode = 0
+parameters/EffectAdd/add_amount = 0
+parameters/EffectStateMachine/playback = SubResource( 187 )
+parameters/EffectStateMachine/Ani/Seek/seek_position = -1.0
+parameters/MixAdd/blend_amount = 0.0
+parameters/MixStateMachine/playback = SubResource( 188 )
+parameters/MixStateMachine/Ani/Seek/seek_position = -1.0
+parameters/OneShot/blend_amount = 0
+parameters/OneShotStateMachine/playback = SubResource( 189 )
+parameters/OneShotStateMachine/Ani/Add2/add_amount = 0.0
+parameters/OneShotStateMachine/Ani/Seek/seek_position = -1.0
+parameters/StateMachine/playback = SubResource( 190 )
+parameters/StateMachine/InSky/playback = SubResource( 191 )
+parameters/StateMachine/OnGround/playback = SubResource( 192 )
+parameters/StateMachine/Sit/playback = SubResource( 193 )
+parameters/StateMachine/Stand/playback = SubResource( 194 )
+
+[node name="StateManager" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="AnimationModel" type="Node" parent="StateManager"]
+script = ExtResource( 28 )
+
+[node name="PlayerState" type="Node" parent="StateManager"]
+script = ExtResource( 2 )
+
+[node name="OneShot" type="Node" parent="StateManager"]
+script = ExtResource( 9 )
+
+[node name="AnimationModel" type="Node" parent="StateManager/OneShot"]
+script = ExtResource( 25 )
+
+[node name="ActionMusic" type="AudioStreamPlayer" parent="StateManager/OneShot"]
+script = ExtResource( 16 )
+
+[node name="Stand" type="Node" parent="StateManager"]
+
+[node name="Idle" type="Node" parent="StateManager/Stand"]
+script = ExtResource( 26 )
+
+[node name="Walk" type="Node" parent="StateManager/Stand"]
+script = ExtResource( 1 )
+
+[node name="Jump" type="Node" parent="StateManager/Stand"]
+script = ExtResource( 30 )
+
+[node name="UpJump" type="Node" parent="StateManager/Stand"]
+script = ExtResource( 40 )
+
+[node name="OnGround" type="Node" parent="StateManager"]
+
+[node name="Flat" type="Node" parent="StateManager/OnGround"]
+script = ExtResource( 29 )
+
+[node name="Creep" type="Node" parent="StateManager/OnGround"]
+script = ExtResource( 27 )
+
+[node name="InSky" type="Node" parent="StateManager"]
+
+[node name="Fly" type="Node" parent="StateManager/InSky"]
+script = ExtResource( 39 )
+
+[node name="Sit" type="Node" parent="StateManager"]
+
+[node name="Sit" type="Node" parent="StateManager/Sit"]
+script = ExtResource( 4 )
+
+[node name="MixStateManager" type="Node" parent="."]
+script = ExtResource( 18 )
+
+[node name="AnimationModel" type="Node" parent="MixStateManager"]
+script = ExtResource( 17 )
+
+[node name="ActionMusic" type="AudioStreamPlayer" parent="MixStateManager"]
+script = ExtResource( 16 )
+
+[node name="EffectManager" type="Node" parent="."]
+script = ExtResource( 31 )
+
+[node name="AnimationModel" type="Node" parent="EffectManager"]
+script = ExtResource( 24 )
+
+[node name="Model" parent="." instance=ExtResource( 5 )]
+
+[node name="AnimationPlayer" parent="Model" index="1"]
+anims/RESET = SubResource( 244 )
+anims/Test_Skate_01 = SubResource( 243 )
+"anims/Test_Skate_Move(Father) " = ExtResource( 38 )
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="Model"]
+anims/Test_Skate_Step01(Child) = ExtResource( 33 )
+anims/Test_Skate_Step01(Father) = ExtResource( 36 )
+anims/Test_Skate_Step02(Child) = ExtResource( 35 )
+anims/Test_Skate_Step02(Father) = ExtResource( 32 )
+anims/Test_Skate_Step03(Child) = ExtResource( 34 )
+anims/Test_Skate_Step03(Father) = ExtResource( 37 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 2.5, 0 )
+shape = SubResource( 2 )
+
+[node name="Info" type="Node" parent="."]
+script = ExtResource( 7 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 2.5, 0 )
+visible = false
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="playerNameBg" type="TextureRect" parent="."]
+visible = false
+margin_right = 316.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 11 )
+expand = true
+
+[node name="TextureRect" type="TextureRect" parent="playerNameBg"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 10 )
+
+[node name="VolumeTextureProgress" type="TextureProgress" parent="playerNameBg/TextureRect"]
+margin_right = 50.0
+margin_bottom = 50.0
+texture_under = ExtResource( 10 )
+texture_progress = ExtResource( 13 )
+fill_mode = 3
+
+[node name="union" type="TextureRect" parent="playerNameBg/TextureRect"]
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 52.0
+margin_bottom = 52.0
+texture = ExtResource( 12 )
+
+[node name="playerName" type="Label" parent="playerNameBg"]
+margin_left = 75.0
+margin_top = 10.0
+margin_right = 327.0
+margin_bottom = 40.0
+grow_horizontal = 0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
+text = "人物昵称人物昵称"
+valign = 1
+autowrap = true
+
+[node name="playerNamePoint" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0 )
+
+[node name="playerCollideArea" type="Area" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource( 14 )
+
+[node name="CollisionShape" type="CollisionShape" parent="playerCollideArea"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 2.97399, -0.793038 )
+shape = SubResource( 5 )
+
+[node name="Particles" parent="." instance=ExtResource( 15 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.216888, 1.62035, -0.138993 )
+visible = false
+
+[node name="palyerTextViewport" type="Viewport" parent="."]
+size = Vector2( 557, 125 )
+transparent_bg = true
+render_target_v_flip = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="palyerTextViewport"]
+margin_right = 298.0
+margin_bottom = 125.0
+texture = ExtResource( 23 )
+patch_margin_left = 50
+patch_margin_right = 50
+patch_margin_bottom = 26
+
+[node name="palyerTextLabel" type="Label" parent="palyerTextViewport/NinePatchRect"]
+margin_left = 20.0
+margin_top = 30.0
+margin_right = 220.0
+margin_bottom = 71.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 22 )
+align = 1
+valign = 1
+
+[node name="palyerTextMesh" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0 )
+visible = false
+mesh = SubResource( 184 )
+material/0 = SubResource( 186 )
+
+[node name="palyerNameViewport" type="Viewport" parent="."]
+size = Vector2( 960, 121 )
+transparent_bg = true
+render_target_v_flip = true
+
+[node name="palyerNameLabel" type="Label" parent="palyerNameViewport"]
+margin_right = 960.0
+margin_bottom = 121.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 183 )
+text = "闹腾闹腾闹腾闹腾"
+align = 1
+valign = 1
+
+[node name="palyerNameMesh" type="Sprite3D" parent="."]
+transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 1, 0, 5.3, 0 )
+billboard = 1
+double_sided = false
+texture = SubResource( 245 )
+
+[node name="MicVolumeAni" parent="." instance=ExtResource( 21 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.41035, 0 )
+visible = false
+billboard = 1
+frame = 28
+
+[editable path="Model"]

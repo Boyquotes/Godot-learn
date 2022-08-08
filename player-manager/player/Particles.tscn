@@ -1,0 +1,56 @@
+[gd_scene load_steps=10 format=2]
+
+[sub_resource type="SpatialMaterial" id=219]
+flags_transparent = true
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+albedo_color = Color( 1, 1, 1, 0.690196 )
+
+[sub_resource type="Gradient" id=220]
+colors = PoolColorArray( 0, 1, 1, 1, 1, 1, 1, 0.258824 )
+
+[sub_resource type="GradientTexture" id=221]
+gradient = SubResource( 220 )
+
+[sub_resource type="Curve" id=195]
+max_value = 100.0
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 54.5045 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=196]
+curve = SubResource( 195 )
+
+[sub_resource type="Curve" id=197]
+_data = [ Vector2( 0.474774, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -5.37715, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=198]
+curve = SubResource( 197 )
+
+[sub_resource type="ParticlesMaterial" id=199]
+lifetime_randomness = 0.4
+emission_shape = 1
+emission_sphere_radius = 1.5
+flag_align_y = true
+spread = 50.0
+gravity = Vector3( 0, 9.8, 0 )
+tangential_accel = 2.0
+tangential_accel_random = 0.5
+damping_random = 1.0
+damping_curve = SubResource( 196 )
+scale = 2.0
+scale_random = 1.0
+scale_curve = SubResource( 198 )
+color_ramp = SubResource( 221 )
+hue_variation = -0.1
+hue_variation_random = 1.0
+
+[sub_resource type="CubeMesh" id=201]
+size = Vector3( 0.2, 0.2, 0.2 )
+
+[node name="Particles" type="Particles"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.92369, 0.762019, 0 )
+material_override = SubResource( 219 )
+cast_shadow = 0
+amount = 300
+lifetime = 1.5
+process_material = SubResource( 199 )
+draw_pass_1 = SubResource( 201 )
