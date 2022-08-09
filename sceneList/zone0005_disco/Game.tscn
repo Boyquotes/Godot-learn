@@ -107,7 +107,7 @@ height = 4.662
 [node name="Camera" type="Camera" parent="."]
 pause_mode = 2
 physics_interpolation_mode = 2
-transform = Transform( 1, -0.000468306, 0.000643921, 0, 0.808736, 0.588172, -0.000796207, -0.588171, 0.808736, -33.8095, 371.645, -13.3847 )
+transform = Transform( 1, -0.000468858, 0.000644687, 0, 0.808738, 0.588168, -0.000797151, -0.588168, 0.808739, -33.8186, 363.411, -24.707 )
 current = true
 script = ExtResource( 56 )
 Protagonist/type = 0
@@ -116,8 +116,8 @@ Lerp/enable = false
 Lerp/speed = 0.297
 Angel/zenithOffset = 0.3
 Angel/azimuthOffset = 0.25
-Distance/Max = 40.0
-Distance/Min = 15.0
+Distance/Max = 20.0
+Distance/Min = 1.0
 Distance/offset = 0.0
 AutoSurround/enable = false
 
@@ -133,7 +133,7 @@ mesh = SubResource( 18 )
 shape = SubResource( 19 )
 
 [node name="Portal" type="Spatial" parent="plane"]
-transform = Transform( 1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 0, 7.7822, 0 )
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 7.7822, 0 )
 script = ExtResource( 58 )
 
 [node name="Effects" type="Spatial" parent="plane/Portal"]
@@ -165,6 +165,7 @@ mesh = SubResource( 45 )
 skeleton = NodePath("../..")
 
 [node name="Area" type="Area" parent="plane/Portal"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="plane/Portal/Area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5047, 0 )
@@ -191,14 +192,16 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01862, 0 )
 mesh = SubResource( 56 )
 skeleton = NodePath("../..")
 
-[node name="Viewport" type="Viewport" parent="."]
+[node name="PortalTargetScene" type="Spatial" parent="."]
+
+[node name="TargetViewport" type="Viewport" parent="."]
 size = Vector2( 1920, 1920 )
 size_override_stretch = true
 msaa = 1
 keep_3d_linear = true
 
-[node name="Camera" type="Camera" parent="Viewport"]
-transform = Transform( 0.703479, 0, 0.038475, 0, 0.959, 0, -0.0270864, 0, 0.99926, 0, 11.1022, 28.2037 )
-current = true
+[node name="Spatial" type="Spatial" parent="TargetViewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.35429, 20.0858, 16.7516 )
 
-[node name="PortalTargetScene" type="Spatial" parent="."]
+[node name="Camera" type="Camera" parent="TargetViewport/Spatial"]
+current = true

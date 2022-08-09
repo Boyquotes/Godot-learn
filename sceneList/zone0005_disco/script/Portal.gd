@@ -16,12 +16,20 @@ onready var mutex = Mutex.new()
 onready var threadTask = null
 onready var threadTaskOut = null
 
+onready var targetViewport = get_tree ().get_root ().find_node("TargetViewport", true, false)
+onready var targetCamera = targetViewport.get_node("Spatial/Camera")
 
 func _ready():
 	areaNode.connect("body_entered",self,"OnBodyEnteredCallback")
 	resourceAsyncLoader.start()
 	thread.start(self, 'threaded_load', 0)
-	
+
+
+func _physics_process(delta):
+	MoveCamera()
+	pass
+
+
 func OnBodyEnteredCallback(body):
 	if(body.name.find("Player")!=-1):
 		PortalLoad()
@@ -48,12 +56,18 @@ func PortalLoad():
 	ShowPassageway()
 
 
-
-
 #region Internal Method 
 func ShowPassageway():
 	passageway.show()
 	animationPlayer.play("PassagewayOpen")
+	
+func MoveCamera():
+
+	var trans = global_transform.inverse() * get_viewport().get_camera().global_transform
+	trans = trans.rotated(Vector3.UP, PI)
+
+	print(trans.origin)
+	targetCamera.transform = trans
 	
 #endregion
 

@@ -317,7 +317,7 @@ nodes/fragment/37/position = Vector2( 760, 0 )
 nodes/fragment/connections = PoolIntArray( 8, 0, 7, 0, 7, 0, 9, 2, 20, 0, 5, 0, 13, 0, 24, 0, 25, 0, 22, 2, 24, 0, 22, 0, 19, 0, 26, 0, 26, 0, 20, 1, 22, 0, 26, 1, 28, 0, 29, 0, 29, 0, 9, 1, 28, 0, 9, 0, 30, 0, 28, 0, 9, 0, 0, 1, 23, 0, 22, 1, 7, 0, 31, 2, 28, 0, 31, 0, 5, 0, 33, 1, 33, 0, 0, 0, 31, 0, 35, 1, 35, 0, 33, 2, 36, 0, 37, 0, 5, 0, 37, 1, 37, 0, 33, 0, 31, 0, 19, 1, 6, 0, 20, 0 )
 
 [sub_resource type="ViewportTexture" id=25]
-viewport_path = NodePath("Viewport")
+viewport_path = NodePath("TargetViewport")
 
 [resource]
 resource_local_to_scene = true
