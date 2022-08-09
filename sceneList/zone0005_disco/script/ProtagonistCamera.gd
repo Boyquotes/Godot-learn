@@ -188,7 +188,7 @@ func _init():
 	pass
 
 func _physics_process(delta): 
-	print("1")
+
 	match lookAtTargetType:
 		LookAtTargetType.Vector3Point:
 			if lookAtPoint==null:

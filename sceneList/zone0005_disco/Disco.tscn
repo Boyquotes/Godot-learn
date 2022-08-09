@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://sceneList/zone0005_disco/prefab/Mus_peakers_02.tscn" type="PackedScene" id=1]
 [ext_resource path="res://sceneList/zone0005_disco/prefab/Mus_DJTable_01.tscn" type="PackedScene" id=2]
@@ -32,7 +32,6 @@
 [ext_resource path="res://sceneList/zone0005_disco/prefab/Foo_jelly_01.tscn" type="PackedScene" id=30]
 [ext_resource path="res://sceneList/zone0005_disco/prefab/App_Spotlights01_02.tscn" type="PackedScene" id=31]
 [ext_resource path="res://sceneList/zone0005_disco/prefab/App_microphone_01.tscn" type="PackedScene" id=32]
-[ext_resource path="res://sceneList/zone0005_disco/disco_envi.tscn" type="PackedScene" id=33]
 [ext_resource path="res://sceneList/zone0005_disco/prefab/Art_Confetti_03.tscn" type="PackedScene" id=34]
 [ext_resource path="res://sceneList/zone0005_disco/prefab/Art_Confetti_01.tscn" type="PackedScene" id=35]
 [ext_resource path="res://sceneList/zone0005_disco/prefab/Art_Confetti_02.tscn" type="PackedScene" id=36]
@@ -46,17 +45,9 @@
 [ext_resource path="res://sceneList/zone0005_disco/material/Glow_01.material" type="Material" id=44]
 [ext_resource path="res://sceneList/zone0005_disco/material/Glow_07.material" type="Material" id=45]
 [ext_resource path="res://sceneList/zone0005_disco/prefab/App_Spotlights01_03.tscn" type="PackedScene" id=46]
-[ext_resource path="res://sceneList/zone0005_disco/prefab/portal/meshes/air.obj" type="ArrayMesh" id=47]
 [ext_resource path="res://sceneList/zone0005_disco/effect/Fn_slabs_00_FX.tscn" type="PackedScene" id=48]
 [ext_resource path="res://sceneList/zone0005_disco/effect/Fn_slabs_00_02FX.tscn" type="PackedScene" id=49]
 [ext_resource path="res://sceneList/zone0005_disco/effect/Fn_slabs_00_01FX.tscn" type="PackedScene" id=50]
-[ext_resource path="res://sceneList/zone0005_disco/disco_envi.tres" type="Environment" id=51]
-[ext_resource path="res://sceneList/zone0005_disco/prefab/portal/materials/ring_effect.tres" type="Material" id=52]
-[ext_resource path="res://sceneList/zone0005_disco/prefab/portal/materials/air_effect_2.tres" type="Material" id=53]
-[ext_resource path="res://sceneList/zone0005_disco/prefab/portal/materials/air_effect.tres" type="Material" id=54]
-[ext_resource path="res://sceneList/zone0005_disco/prefab/portal/materials/portal_inside.tres" type="Material" id=55]
-[ext_resource path="res://sceneList/zone0005_disco/script/ProtagonistCamera.gd" type="Script" id=56]
-[ext_resource path="res://sceneList/zone0005_disco/script/playerMove.gd" type="Script" id=57]
 
 [sub_resource type="ArrayMesh" id=2]
 resource_name = "App_Spotlights01_01_FX_立方体004"
@@ -297,137 +288,6 @@ surfaces/0 = {
 "skeleton_aabb": [  ],
 "vertex_count": 22
 }
-
-[sub_resource type="CubeMesh" id=18]
-size = Vector3( 80, 2, 80 )
-
-[sub_resource type="BoxShape" id=19]
-extents = Vector3( 40, 1, 40 )
-
-[sub_resource type="QuadMesh" id=44]
-size = Vector2( 4, 4 )
-
-[sub_resource type="QuadMesh" id=45]
-size = Vector2( 4.5, 4.5 )
-
-[sub_resource type="QuadMesh" id=46]
-
-[sub_resource type="VisualShaderNodeTextureUniform" id=47]
-uniform_name = "TextureUniform"
-
-[sub_resource type="VisualShaderNodeInput" id=48]
-input_name = "uv"
-
-[sub_resource type="VisualShaderNodeExpression" id=51]
-size = Vector2( 1386.25, 567.393 )
-expression = "// From : https://mmmovania.blogspot.com/2011/11/twirl-filter-in-glsl.html
-// By : MMMovania
-float angle = atan(uv.y,uv.x) - angle_offset * 2.0;
-float radius = length(uv);
-angle += radius * amount;
-shifted = radius * vec3(cos(angle), sin(angle), 1.0);"
-
-[sub_resource type="VisualShader" id=49]
-code = "shader_type spatial;
-render_mode specular_schlick_ggx, async_visible;
-
-uniform sampler2D TextureUniform;
-
-
-
-void vertex() {
-// Output:0
-
-}
-
-void fragment() {
-// Input:3
-	vec3 n_out3p0 = vec3(UV, 0.0);
-
-// TextureUniform:2
-	vec3 n_out2p0;
-	float n_out2p1;
-	{
-		vec4 n_tex_read = texture(TextureUniform, n_out3p0.xy);
-		n_out2p0 = n_tex_read.rgb;
-		n_out2p1 = n_tex_read.a;
-	}
-
-// Output:0
-	ALBEDO = n_out2p0;
-
-}
-
-void light() {
-// Output:0
-
-}
-"
-graph_offset = Vector2( -679.449, 53.396 )
-nodes/fragment/2/node = SubResource( 47 )
-nodes/fragment/2/position = Vector2( -533.5, 178 )
-nodes/fragment/3/node = SubResource( 48 )
-nodes/fragment/3/position = Vector2( -776.5, 310 )
-nodes/fragment/4/node = SubResource( 51 )
-nodes/fragment/4/position = Vector2( -1120, 780 )
-nodes/fragment/4/size = Vector2( 1386.25, 567.393 )
-nodes/fragment/4/input_ports = "0,1,uv;1,0,amount;2,0,angle_offset;"
-nodes/fragment/4/output_ports = "0,1,shifted;"
-nodes/fragment/4/expression = "// From : https://mmmovania.blogspot.com/2011/11/twirl-filter-in-glsl.html
-// By : MMMovania
-float angle = atan(uv.y,uv.x) - angle_offset * 2.0;
-float radius = length(uv);
-angle += radius * amount;
-shifted = radius * vec3(cos(angle), sin(angle), 1.0);"
-nodes/fragment/connections = PoolIntArray( 3, 0, 2, 0, 2, 0, 0, 0 )
-
-[sub_resource type="ViewportTexture" id=52]
-viewport_path = NodePath("Viewport")
-
-[sub_resource type="ShaderMaterial" id=50]
-resource_local_to_scene = true
-shader = SubResource( 49 )
-shader_param/TextureUniform = SubResource( 52 )
-
-[sub_resource type="CylinderShape" id=57]
-radius = 1.07163
-
-[sub_resource type="CylinderMesh" id=56]
-
-[sub_resource type="Shader" id=53]
-code = "shader_type canvas_item;
-
-
-
-//void fragment(){
-//
-//	vec2 uv = UV - vec2( 0.5, 0.5);
-//
-//	float  angle_offset = TIME /10.0;
-//
-//	float angle = atan(uv.y,uv.x) - angle_offset;
-//	float radius = length(uv);
-//	angle += radius * 0.0;
-//	vec2 shifted = radius * vec2(cos(angle), sin(angle));
-//
-//	COLOR =  texture(TEXTURE, shifted + vec2( 0.5, 0.5));
-//}
-
-void fragment(){
-	
-	float opening = 1.0;
-	
-	
-	
-	COLOR = vec4(smoothstep(opening/2.0,0.4,distance(UV,vec2(0.5,0.5))),smoothstep(opening/2.0,0.4,distance(UV,vec2(0.5,0.5))),smoothstep(opening/2.0,0.4,distance(UV,vec2(0.5,0.5))),1.0);
-	
-}"
-
-[sub_resource type="ShaderMaterial" id=54]
-shader = SubResource( 53 )
-
-[sub_resource type="ViewportTexture" id=55]
-viewport_path = NodePath("Viewport")
 
 [node name="disco" type="Spatial"]
 
@@ -8148,93 +8008,3 @@ light_energy = 0.5
 shadow_enabled = true
 shadow_color = Color( 0.729412, 0.415686, 0.631373, 1 )
 shadow_bias = 1.0
-
-[node name="disco_envi" parent="light" instance=ExtResource( 33 )]
-environment = ExtResource( 51 )
-
-[node name="Camera" type="Camera" parent="."]
-pause_mode = 2
-physics_interpolation_mode = 2
-transform = Transform( -0.718648, 0, -0.695374, 0, 1, 0, 0.695374, 0, -0.718648, -33.8192, 370.427, -42.2519 )
-current = true
-script = ExtResource( 56 )
-Protagonist/type = 0
-Protagonist/Spatial = NodePath("../plane/KinematicBody")
-Lerp/enable = false
-Lerp/speed = 0.297
-Angel/zenithOffset = 0.3
-Angel/azimuthOffset = 0.25
-Distance/Max = 40.0
-Distance/Min = 15.0
-Distance/offset = 0.0
-AutoSurround/enable = false
-
-[node name="plane" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 360.333, 0 )
-
-[node name="MeshInstance" type="MeshInstance" parent="plane"]
-mesh = SubResource( 18 )
-
-[node name="StaticBody" type="StaticBody" parent="plane/MeshInstance"]
-
-[node name="CollisionShape" type="CollisionShape" parent="plane/MeshInstance/StaticBody"]
-shape = SubResource( 19 )
-
-[node name="Portal" type="Spatial" parent="plane"]
-transform = Transform( 1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 0, 7.7822, 0 )
-
-[node name="Hole" type="MeshInstance" parent="plane/Portal"]
-transform = Transform( -0.483023, 0, -0.875608, 0, 1, 0, 0.875608, 0, -0.483023, 0, 0, 0 )
-mesh = SubResource( 44 )
-material/0 = ExtResource( 55 )
-
-[node name="Ring" type="MeshInstance" parent="plane/Portal"]
-material_override = ExtResource( 52 )
-mesh = SubResource( 45 )
-
-[node name="Effects" type="Spatial" parent="plane/Portal"]
-transform = Transform( 0.555556, 0, 0, 0, 0.555556, 0, 0, 0, 0.555556, 0, 0, 0 )
-
-[node name="air" type="MeshInstance" parent="plane/Portal/Effects"]
-transform = Transform( 3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, 0, 0, 0 )
-material_override = ExtResource( 54 )
-mesh = ExtResource( 47 )
-
-[node name="air2" type="MeshInstance" parent="plane/Portal/Effects"]
-transform = Transform( -0.102265, 1.40756, 3.74277, -3.99869, -0.0359972, -0.0957199, -5.40167e-07, -3.74399, 1.40802, 0, 0, 0 )
-material_override = ExtResource( 53 )
-mesh = ExtResource( 47 )
-
-[node name="MeshInstance" type="MeshInstance" parent="plane/Portal"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.2735, 0 )
-mesh = SubResource( 46 )
-material/0 = SubResource( 50 )
-
-[node name="KinematicBody" type="KinematicBody" parent="plane"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -33.8192, 2.48941, -25.5157 )
-script = ExtResource( 57 )
-cameraPath = NodePath("../../Camera")
-
-[node name="CollisionShape" type="CollisionShape" parent="plane/KinematicBody"]
-shape = SubResource( 57 )
-
-[node name="Person" type="MeshInstance" parent="plane/KinematicBody"]
-mesh = SubResource( 56 )
-skeleton = NodePath("../..")
-
-[node name="Viewport" type="Viewport" parent="."]
-size = Vector2( 1920, 1920 )
-size_override_stretch = true
-msaa = 1
-keep_3d_linear = true
-
-[node name="Camera" type="Camera" parent="Viewport"]
-transform = Transform( 0.703479, 0, 0.038475, 0, 0.959, 0, -0.0270864, 0, 0.99926, 0, 11.1022, 28.2037 )
-current = true
-
-[node name="TextureRect" type="TextureRect" parent="."]
-visible = false
-material = SubResource( 54 )
-margin_right = 1920.0
-margin_bottom = 1920.0
-texture = SubResource( 55 )

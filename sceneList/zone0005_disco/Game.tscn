@@ -1,0 +1,204 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://sceneList/zone0005_disco/prefab/portal/meshes/air.obj" type="ArrayMesh" id=47]
+[ext_resource path="res://sceneList/zone0005_disco/prefab/portal/materials/ring_effect.tres" type="Material" id=52]
+[ext_resource path="res://sceneList/zone0005_disco/prefab/portal/materials/air_effect_2.tres" type="Material" id=53]
+[ext_resource path="res://sceneList/zone0005_disco/prefab/portal/materials/air_effect.tres" type="Material" id=54]
+[ext_resource path="res://sceneList/zone0005_disco/prefab/portal/materials/portal_inside.tres" type="Material" id=55]
+[ext_resource path="res://sceneList/zone0005_disco/script/ProtagonistCamera.gd" type="Script" id=56]
+[ext_resource path="res://sceneList/zone0005_disco/script/playerMove.gd" type="Script" id=57]
+[ext_resource path="res://sceneList/zone0005_disco/script/Portal.gd" type="Script" id=58]
+
+[sub_resource type="CubeMesh" id=18]
+size = Vector3( 80, 2, 80 )
+
+[sub_resource type="BoxShape" id=19]
+extents = Vector3( 40, 1, 40 )
+
+[sub_resource type="QuadMesh" id=44]
+size = Vector2( 4, 4 )
+
+[sub_resource type="QuadMesh" id=45]
+size = Vector2( 4.5, 4.5 )
+
+[sub_resource type="CylinderShape" id=58]
+height = 2.385
+radius = 20.9487
+
+[sub_resource type="CylinderMesh" id=59]
+top_radius = 20.949
+bottom_radius = 20.949
+
+[sub_resource type="Animation" id=60]
+resource_name = "PassagewayOpen"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("passageway/Hole:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0.58, 0.58, 0.58 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("passageway/Ring:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0.58, 0.58, 0.58 ) ]
+}
+
+[sub_resource type="Animation" id=61]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("passageway/Hole:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("passageway:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("passageway/Ring:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.58, 0.58, 0.58 ) ]
+}
+
+[sub_resource type="CylinderShape" id=57]
+radius = 1.07163
+
+[sub_resource type="CylinderMesh" id=56]
+height = 4.662
+
+[node name="Game" type="Spatial"]
+
+[node name="Camera" type="Camera" parent="."]
+pause_mode = 2
+physics_interpolation_mode = 2
+transform = Transform( 1, -0.000468306, 0.000643921, 0, 0.808736, 0.588172, -0.000796207, -0.588171, 0.808736, -33.8095, 371.645, -13.3847 )
+current = true
+script = ExtResource( 56 )
+Protagonist/type = 0
+Protagonist/Spatial = NodePath("../plane/Player")
+Lerp/enable = false
+Lerp/speed = 0.297
+Angel/zenithOffset = 0.3
+Angel/azimuthOffset = 0.25
+Distance/Max = 40.0
+Distance/Min = 15.0
+Distance/offset = 0.0
+AutoSurround/enable = false
+
+[node name="plane" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 360.333, 0 )
+
+[node name="Ground" type="MeshInstance" parent="plane"]
+mesh = SubResource( 18 )
+
+[node name="StaticBody" type="StaticBody" parent="plane/Ground"]
+
+[node name="CollisionShape" type="CollisionShape" parent="plane/Ground/StaticBody"]
+shape = SubResource( 19 )
+
+[node name="Portal" type="Spatial" parent="plane"]
+transform = Transform( 1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 0, 7.7822, 0 )
+script = ExtResource( 58 )
+
+[node name="Effects" type="Spatial" parent="plane/Portal"]
+transform = Transform( 0.555556, 0, 0, 0, 0.555556, 0, 0, 0, 0.555556, 0, 0, 0 )
+
+[node name="air" type="MeshInstance" parent="plane/Portal/Effects"]
+transform = Transform( 3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, 0, 0, 0 )
+material_override = ExtResource( 54 )
+mesh = ExtResource( 47 )
+
+[node name="air2" type="MeshInstance" parent="plane/Portal/Effects"]
+transform = Transform( -0.102265, 1.40756, 3.74277, -3.99869, -0.0359972, -0.0957199, -5.40167e-07, -3.74399, 1.40802, 0, 0, 0 )
+material_override = ExtResource( 53 )
+mesh = ExtResource( 47 )
+
+[node name="passageway" type="Spatial" parent="plane/Portal"]
+visible = false
+
+[node name="Hole" type="MeshInstance" parent="plane/Portal/passageway"]
+transform = Transform( -0.483023, 0, -0.875608, 0, 1, 0, 0.875608, 0, -0.483023, 0, 0, 0 )
+mesh = SubResource( 44 )
+skeleton = NodePath("../..")
+material/0 = ExtResource( 55 )
+
+[node name="Ring" type="MeshInstance" parent="plane/Portal/passageway"]
+transform = Transform( 0.58, 0, 0, 0, 0.58, 0, 0, 0, 0.58, 0, 0, 0 )
+material_override = ExtResource( 52 )
+mesh = SubResource( 45 )
+skeleton = NodePath("../..")
+
+[node name="Area" type="Area" parent="plane/Portal"]
+
+[node name="CollisionShape" type="CollisionShape" parent="plane/Portal/Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5047, 0 )
+shape = SubResource( 58 )
+
+[node name="MeshInstance" type="MeshInstance" parent="plane/Portal/Area/CollisionShape"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.42548, 0 )
+mesh = SubResource( 59 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="plane/Portal"]
+anims/PassagewayOpen = SubResource( 60 )
+anims/RESET = SubResource( 61 )
+
+[node name="Player" type="KinematicBody" parent="plane"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -33.8192, 2.48941, -25.5157 )
+script = ExtResource( 57 )
+cameraPath = NodePath("../../Camera")
+
+[node name="CollisionShape" type="CollisionShape" parent="plane/Player"]
+shape = SubResource( 57 )
+
+[node name="Person" type="MeshInstance" parent="plane/Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01862, 0 )
+mesh = SubResource( 56 )
+skeleton = NodePath("../..")
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 1920, 1920 )
+size_override_stretch = true
+msaa = 1
+keep_3d_linear = true
+
+[node name="Camera" type="Camera" parent="Viewport"]
+transform = Transform( 0.703479, 0, 0.038475, 0, 0.959, 0, -0.0270864, 0, 0.99926, 0, 11.1022, 28.2037 )
+current = true
+
+[node name="PortalTargetScene" type="Spatial" parent="."]

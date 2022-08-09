@@ -64,6 +64,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://player-manager/player/script/player_tool.gd"
 }, {
+"base": "Reference",
+"class": "ResourceAsyncLoader",
+"language": "GDScript",
+"path": "res://sceneList/zone0005_disco/script/ResourceAsyncLoader.gd"
+}, {
 "base": "BasicAction",
 "class": "RotateAction",
 "language": "GDScript",
@@ -91,6 +96,7 @@ _global_script_class_icons={
 "Player": "",
 "PlayerState": "",
 "PlayerTool": "",
+"ResourceAsyncLoader": "",
 "RotateAction": "",
 "StateManager": "",
 "VanlishAction": ""
@@ -99,7 +105,7 @@ _global_script_class_icons={
 [application]
 
 config/name="godot-start"
-run/main_scene="res://sceneList/demo28_LaunchPad/Game.tscn"
+run/main_scene="res://sceneList/zone0005_disco/Game.tscn"
 config/icon="res://icon.png"
 
 [autoload]
