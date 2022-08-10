@@ -1,0 +1,8 @@
+
+
+
+
+
+
+static func ThreadLoad():
+	pass

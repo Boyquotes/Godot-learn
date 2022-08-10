@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://sceneList/zone0005_disco/prefab/portal/meshes/air.obj" type="ArrayMesh" id=47]
 [ext_resource path="res://sceneList/zone0005_disco/prefab/portal/materials/ring_effect.tres" type="Material" id=52]
@@ -28,6 +28,9 @@ radius = 20.9487
 [sub_resource type="CylinderMesh" id=59]
 top_radius = 20.949
 bottom_radius = 20.949
+
+[sub_resource type="CylinderShape" id=62]
+height = 25.571
 
 [sub_resource type="Animation" id=60]
 resource_name = "PassagewayOpen"
@@ -97,6 +100,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="CylinderShape" id=57]
+height = 8.75231
 radius = 1.07163
 
 [sub_resource type="CylinderMesh" id=56]
@@ -107,7 +111,7 @@ height = 4.662
 [node name="Camera" type="Camera" parent="."]
 pause_mode = 2
 physics_interpolation_mode = 2
-transform = Transform( 1, -0.000468858, 0.000644687, 0, 0.808738, 0.588168, -0.000797151, -0.588168, 0.808739, -33.8186, 363.411, -24.707 )
+transform = Transform( 1, -0.000468859, 0.000644687, 0, 0.808739, 0.588168, -0.000797151, -0.588168, 0.808739, -33.8186, 363.411, -24.707 )
 current = true
 script = ExtResource( 56 )
 Protagonist/type = 0
@@ -137,7 +141,7 @@ transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 7.7822, 0 )
 script = ExtResource( 58 )
 
 [node name="Effects" type="Spatial" parent="plane/Portal"]
-transform = Transform( 0.555556, 0, 0, 0, 0.555556, 0, 0, 0, 0.555556, 0, 0, 0 )
+transform = Transform( 0.555556, 0, 0, 0, 0.555556, 0, 0, 0, 0.555556, 0, 1.01709, 0 )
 
 [node name="air" type="MeshInstance" parent="plane/Portal/Effects"]
 transform = Transform( 3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, 0, 0, 0 )
@@ -150,6 +154,7 @@ material_override = ExtResource( 53 )
 mesh = ExtResource( 47 )
 
 [node name="passageway" type="Spatial" parent="plane/Portal"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01709, 0 )
 visible = false
 
 [node name="Hole" type="MeshInstance" parent="plane/Portal/passageway"]
@@ -164,16 +169,34 @@ material_override = ExtResource( 52 )
 mesh = SubResource( 45 )
 skeleton = NodePath("../..")
 
-[node name="Area" type="Area" parent="plane/Portal"]
+[node name="LoadTrigger" type="Area" parent="plane/Portal"]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 
-[node name="CollisionShape" type="CollisionShape" parent="plane/Portal/Area"]
+[node name="CollisionShape" type="CollisionShape" parent="plane/Portal/LoadTrigger"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5047, 0 )
 shape = SubResource( 58 )
 
-[node name="MeshInstance" type="MeshInstance" parent="plane/Portal/Area/CollisionShape"]
+[node name="MeshInstance" type="MeshInstance" parent="plane/Portal/LoadTrigger/CollisionShape"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.42548, 0 )
 mesh = SubResource( 59 )
+
+[node name="EnterTrigger" type="Area" parent="plane/Portal"]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, -1.05212, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="plane/Portal/EnterTrigger"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5047, 0 )
+shape = SubResource( 58 )
+
+[node name="MeshInstance" type="MeshInstance" parent="plane/Portal/EnterTrigger/CollisionShape"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.913773, 0 )
+mesh = SubResource( 59 )
+
+[node name="TeleportTrigger" type="Area" parent="plane/Portal"]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="plane/Portal/TeleportTrigger"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.401, 0 )
+shape = SubResource( 62 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="plane/Portal"]
 anims/PassagewayOpen = SubResource( 60 )
@@ -185,6 +208,7 @@ script = ExtResource( 57 )
 cameraPath = NodePath("../../Camera")
 
 [node name="CollisionShape" type="CollisionShape" parent="plane/Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.052, 0 )
 shape = SubResource( 57 )
 
 [node name="Person" type="MeshInstance" parent="plane/Player"]
@@ -205,3 +229,4 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.35429, 20.0858, 16.7516 )
 
 [node name="Camera" type="Camera" parent="TargetViewport/Spatial"]
 current = true
+far = 800.0

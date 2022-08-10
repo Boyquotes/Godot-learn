@@ -28,7 +28,7 @@ var lookAtPoint:Vector3 = Vector3(0,0,0) setget SetLookAtPoint , GetLookAtPoint
 
 var isAutoSurround:bool = false
 var autoSurroundSpeed:float = 1 
-
+var enable = true
 #endregion
 
 #region Editor script
@@ -188,7 +188,9 @@ func _init():
 	pass
 
 func _physics_process(delta): 
-
+	if(not enable):
+		set_physics_process(false)
+		return
 	match lookAtTargetType:
 		LookAtTargetType.Vector3Point:
 			if lookAtPoint==null:
@@ -372,8 +374,8 @@ func Check(input,checkType)->bool:
 	return true
 
 #不借助Spatial节点的look_at（）方法自己实现
-func LookAt(taregtPosition,worldUp=Vector3.UP):
-	look_at(taregtPosition,worldUp)
+func LookAt(taregtPosition, worldUp=Vector3.UP):
+	look_at(taregtPosition, worldUp)
 	# var cameraAxis_Z =(transform.origin-taregtPosition).normalized()
 
 	# var cameraAxis_X= worldUp.cross(cameraAxis_Z).normalized()
@@ -382,7 +384,7 @@ func LookAt(taregtPosition,worldUp=Vector3.UP):
 	
 	# transform.basis=Basis(cameraAxis_X,cameraAxis_Y,cameraAxis_Z)
 
-func LookAtLerp(taregtPosition,worldUp=Vector3.UP):
+func LookAtLerp(taregtPosition, worldUp=Vector3.UP):
 	var cameraAxis_Z =(transform.origin-taregtPosition).normalized()
 
 	var cameraAxis_X= worldUp.cross(cameraAxis_Z).normalized()
@@ -394,12 +396,12 @@ func LookAtLerp(taregtPosition,worldUp=Vector3.UP):
 	transform.basis = Basis(quat)
 
 
-func LookAtPosition(position,taregtPosition,worldUp=Vector3.UP):
-	look_at_from_position(position,taregtPosition,worldUp)
+func LookAtPosition(position, taregtPosition, worldUp=Vector3.UP):
+	look_at_from_position(position, taregtPosition, worldUp)
 	# transform.origin=position
 	# LookAt(taregtPosition,worldUp)
 
-func LookAtPositionLerp(position,taregtPosition,worldUp=Vector3.UP):
+func LookAtPositionLerp(position, taregtPosition, worldUp=Vector3.UP):
 	# 2D Mode
 	if(zenithAngelOffset<=0.001 or zenithAngelOffset>=0.999):
 		transform.origin= lerp(transform.origin,position,lerpSpeed)  

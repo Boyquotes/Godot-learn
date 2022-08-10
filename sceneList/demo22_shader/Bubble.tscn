@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=4 format=2]
 
-[sub_resource type="PlaneMesh" id=1]
+[sub_resource type="QuadMesh" id=44]
+size = Vector2( 4, 4 )
 
 [sub_resource type="Shader" id=2]
 code = "shader_type spatial;
@@ -131,43 +132,8 @@ void fragment()
 [sub_resource type="ShaderMaterial" id=3]
 shader = SubResource( 2 )
 
-[sub_resource type="PlaneMesh" id=4]
-
-[sub_resource type="Shader" id=5]
-code = "shader_type spatial;
-
-uniform sampler2D noise;
-
-void fragment(){
-	
-	vec2 noise_uv =(TIME * (-0.2))
-	
-	vec3 SCREEN_UV3= vec3(SCREEN_UV, 0);
-	
-	vec4 SCREEN_TEXTURE_tex_read = texture(SCREEN_TEXTURE, SCREEN_UV);
-	noise_tex_read = texture(noise, SCREEN_UV);
-	smoothstep(0.2,0.8,UV.y)
-	ALBEDO =  vec3(SCREEN_TEXTURE_tex_read.xyz);
-}"
-
-[sub_resource type="ShaderMaterial" id=6]
-shader = SubResource( 5 )
-
-[node name="Spatial" type="Spatial"]
-
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-mesh = SubResource( 1 )
+[node name="Hole2" type="MeshInstance"]
+transform = Transform( -0.280153, 0, -0.507852, 0, 0.58, 0, 0.507852, 0, -0.280153, 0, 0, 0 )
+mesh = SubResource( 44 )
+skeleton = NodePath("../..")
 material/0 = SubResource( 3 )
-
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.58434 )
-
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
-visible = false
-
-[node name="MeshInstance2" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.272662, 0 )
-visible = false
-mesh = SubResource( 4 )
-material/0 = SubResource( 6 )
